@@ -42,6 +42,8 @@ public class Main {
         supplierDataStore.add(lenovo);
         Supplier samsung = new Supplier("Samsung", "Smartphones");
         supplierDataStore.add(samsung);
+        Supplier apple = new Supplier("Apple", "Electronic devices (Smartphones, Tablets, Notebooks)");
+        supplierDataStore.add(samsung);
         
         //setting up a new product category
         ProductCategory tablet = new ProductCategory("Tablet", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
@@ -54,7 +56,7 @@ public class Main {
         productDataStore.add(new Product("Lenovo IdeaPad Miix 700", 479, "USD", "Keyboard cover is included. Fanless Core m5 processor. Full-size USB ports. Adjustable kickstand.", tablet, lenovo));
         productDataStore.add(new Product("Amazon Fire HD 8", 89, "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption.", tablet, amazon));
         productDataStore.add(new Product("Samsung Galaxy Note 7", 899, "USD", "Samsung's top-of-the-line smartphone. This product is a total BLAST!", smartphone, samsung));
-
+        productDataStore.add(new Product("Apple iPhone 6 Plus Space Gray 64GB", 529.99f, "USD", "Apple's best smartphone, with 64GB of storage and a 3.5mm jack port.", smartphone, apple));
     }
 
 
