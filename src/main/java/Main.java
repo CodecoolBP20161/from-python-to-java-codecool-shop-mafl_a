@@ -43,7 +43,7 @@ public class Main {
         Supplier samsung = new Supplier("Samsung", "Smartphones");
         supplierDataStore.add(samsung);
         Supplier apple = new Supplier("Apple", "Electronic devices (Smartphones, Tablets, Notebooks)");
-        supplierDataStore.add(samsung);
+        supplierDataStore.add(apple);
         
         //setting up a new product category
         ProductCategory tablet = new ProductCategory("Tablet", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
