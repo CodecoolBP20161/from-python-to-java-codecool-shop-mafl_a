@@ -30,6 +30,9 @@ public class Main {
 //            return new ThymeleafTemplateEngine().render( ProductController.renderAll(req, res) );
 //        });
 
+        // Product supplier routes
+        get("/supplier/:supId", ProductController::renderProducts, new ThymeleafTemplateEngine());
+
         // Always add generic routes to the end
         get("/", ProductController::renderAll, new ThymeleafTemplateEngine());
 
