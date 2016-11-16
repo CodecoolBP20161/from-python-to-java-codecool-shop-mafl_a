@@ -25,6 +25,11 @@ public class Main {
         // Product category routes
         get("/category/:id", ProductController::renderProducts, new ThymeleafTemplateEngine());
 
+//        Longer version of the snippet above only to understand better how it works
+//        get("/category/:id", (Request req, Response res) -> {
+//            return new ThymeleafTemplateEngine().render( ProductController.renderAll(req, res) );
+//        });
+
         // Always add generic routes to the end
         get("/", ProductController::renderAll, new ThymeleafTemplateEngine());
 
