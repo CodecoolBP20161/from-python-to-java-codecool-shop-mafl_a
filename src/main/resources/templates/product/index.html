@@ -30,13 +30,23 @@
 <body>
 
 <div class="jumbotron text-center">
-    <h1>Codecool Shop</h1>
+    <h1><a href="/">Codecool Shop</a></h1>
 </div>
-
 <div class="container">
     <div class="well well-sm">
-        <strong th:text="${category.name}">Category Title</strong>
+
+        <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" th:text="${category? category.name : 'Select a category'}">
+                Select category
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a href="/category/" th:each="category,iterStat : ${categories}" th:attr="href='/category/' + ${category.id}" th:text="${category.name}"></a></li>
+            </ul>
+        </div>
+        <!--<strong th:text="${category.name}">Category Title</strong>-->
     </div>
+
 
     <div id="products" class="row list-group">
 
