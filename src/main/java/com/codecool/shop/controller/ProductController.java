@@ -21,16 +21,22 @@ public class ProductController {
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
         SupplierDao productSupplierDataStore = SupplierDaoMem.getInstance();
-        int catId = Integer.parseInt(req.params(":catId"));
-        int supId = Integer.parseInt(req.params(":supId"));
+
+
+        int catId = req.params(":catId")!=null ? Integer.parseInt(req.params(":catId")) : -1;
+        int supId = req.params(":supId")!=null ? Integer.parseInt(req.params(":supId")) : -1;
 
         Map params = new HashMap<>();
-        params.put("category", productCategoryDataStore.find(catId));
-        params.put("supplier", productSupplierDataStore.find(supId));
+        if (catId != -1) {
+            params.put("category", productCategoryDataStore.find(catId));
+            params.put("products", productDataStore.getBy(productCategoryDataStore.find(catId)));
+        } else if (supId != -1) {
+            params.put("supplier", productSupplierDataStore.find(supId));
+            params.put("products", productDataStore.getBy(productSupplierDataStore.find(supId)));
+        }
         params.put("categories",productCategoryDataStore.getAll());
         params.put("suppliers", productSupplierDataStore.getAll());
-        params.put("products", productDataStore.getBy(productCategoryDataStore.find(catId)));
-        params.put("products", productDataStore.getBy(productSupplierDataStore.find(supId)));
+
         return new ModelAndView(params, "product/index");
     }
 
