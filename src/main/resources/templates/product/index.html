@@ -36,12 +36,22 @@
     <div class="well well-sm">
 
         <div class="dropdown">
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" th:text="${category? category.name : 'Select a category'}">
-                Select category
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownCategories" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" th:text="${category? category.name : 'Select a category'}">
+                Choose
                 <span class="caret"></span>
             </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><a href="/category/" th:each="category,iterStat : ${categories}" th:attr="href='/category/' + ${category.id}" th:text="${category.name}"></a></li>
+            <ul class="dropdown-menu" aria-labelledby="dropdownCategories">
+                <li><a href="/category/" th:each="categ,iterStat : ${categories}" th:attr="href='/category/' + ${categ.id}" th:text="${categ.name}"></a></li>
+            </ul>
+        </div>
+
+        <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownSuppliers" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" th:text="${supplier? supplier.name : 'Select a supplier'}">
+                Choose
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownSuppliers">
+                <li><a href="/supplier/" th:each="suppl,iterStat : ${suppliers}" th:attr="href='/supplier/' + ${suppl.id}" th:text="${suppl.name}"></a></li>
             </ul>
         </div>
         <!--<strong th:text="${category.name}">Category Title</strong>-->
