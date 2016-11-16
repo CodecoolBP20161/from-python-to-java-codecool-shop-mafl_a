@@ -35,7 +35,11 @@
 
 <div class="container">
     <div class="well well-sm">
-        <strong th:text="${category.name}">Category Title</strong>
+        <select class="form-control">
+            <option value="two">Select a category</option>
+            <option th:each="category,iterStat : ${categories}" th:text="${category.name}">tt</option>
+        </select>
+        <!--<strong th:text="${category.name}">Category Title</strong>-->
     </div>
 
     <div id="products" class="row list-group">
