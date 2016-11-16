@@ -23,7 +23,7 @@ public class Main {
         get("/hello", (req, res) -> "Hello World");
 
         // Product category routes
-        get("/category/:id", ProductController::renderProducts, new ThymeleafTemplateEngine());
+        get("/category/:catId", ProductController::renderProducts, new ThymeleafTemplateEngine());
 
 //        Longer version of the snippet above only to understand better how it works
 //        get("/category/:id", (Request req, Response res) -> {
