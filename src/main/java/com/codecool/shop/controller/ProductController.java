@@ -76,9 +76,7 @@ public class ProductController {
 
         ProductDao productDataStore = ProductDaoMem.getInstance();
         for (Product item : productDataStore.getAll()) {
-            if (item.getId() == Integer.parseInt(req.params(":prodId"))) {
-                order.checkLineItem(item);
-            }
+            if (item.getId() == Integer.parseInt(req.params(":prodId"))) order.checkLineItem(item);
         }
         res.redirect("/");
         return null;
