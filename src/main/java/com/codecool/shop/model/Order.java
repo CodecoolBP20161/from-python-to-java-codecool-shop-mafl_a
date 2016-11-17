@@ -1,7 +1,6 @@
 package com.codecool.shop.model;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Order {
 
@@ -37,6 +36,17 @@ public class Order {
     public void addLineItems(LineItem lineItem) {
         lineItem.setId(lineItems.size() + 1);
         lineItems.add(lineItem);
+    }
+
+    // checks if a lineitem exists, if not, it creates a new
+    public void checkLineItem(Product product) {
+        for (LineItem item : lineItems) {
+            if (item.getProduct() == product) {
+                item.setQuantity(item.getQuantity() + 1);
+            } else {
+                addLineItems(new LineItem(product));
+            }
+        }
     }
 
 }
