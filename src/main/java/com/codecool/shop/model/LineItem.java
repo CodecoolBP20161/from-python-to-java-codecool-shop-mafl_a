@@ -5,21 +5,26 @@ public class LineItem {
     private Product product;
     private int quantity = 1;
 
+    public LineItem(final Product product){
+        this.product = product;
+    }
+
     public int getId() {return this.id; }
 
     public void setId(int id) {this.id = id;}
 
-    public void setProducts(Product product) {
-        this.product = product;
-    }
-
-    public Product getProducts() {
+    public Product getProduct() {
         return this.product;
     }
 
+    public int getQuantity() { return this.quantity; }
+
     public void setQuantity(int quantity) { this.quantity = quantity; }
 
-    public int getQuantity() { return this.quantity; }
+    // returns the total price of the lineitem
+    public float getTotalPrice() {
+        return product.getDefaultPrice() * this.quantity;
+    }
 
     public String toString() {
         return String.format("id: %1$d, " +
