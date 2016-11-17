@@ -42,24 +42,19 @@ public class Order {
 
     // checks if a lineitem exists, if not, it creates a new
     public void checkLineItem(Product product) {
-        if (lineItems.size() != 0) {
-            Iterator<LineItem> iterator = lineItems.iterator();
-            LineItem item = iterator.next();
-            System.out.println(item.getProduct());
-
-            while (iterator.hasNext()) {
-                System.out.println(product);
-
-                if (item.getProduct() == product) {
+        boolean hasLineItem = false;
+        if (lineItems.size() > 0) {
+            for (int i = 0, len = lineItems.size(); i < len; i++) {
+                LineItem item = lineItems.get(i);
+                if (item.getProduct().getId() == product.getId()) {
                     item.setQuantity(item.getQuantity() + 1);
-                } else {
-                    addLineItems(new LineItem(product));
+                    hasLineItem = true;
                 }
             }
+            if (!hasLineItem) lineItems.add(new LineItem(product));
         } else {
             addLineItems(new LineItem(product));
         }
-//        System.out.println(lineItems);
     }
 
 }

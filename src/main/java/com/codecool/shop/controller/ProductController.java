@@ -62,9 +62,8 @@ public class ProductController {
         order = req.session().attribute("order");
 
         ProductDao productDataStore = ProductDaoMem.getInstance();
-        for (Product item : productDataStore.getAll()) {
-            if (item.getId() == Integer.parseInt(req.params(":prodId"))) order.checkLineItem(item);
-        }
+        productDataStore.getAll().stream().filter(item -> item.getId() == Integer.parseInt(req.params(":prodId")))
+                .forEach(order::checkLineItem);
         res.redirect("/");
         return null;
     }
