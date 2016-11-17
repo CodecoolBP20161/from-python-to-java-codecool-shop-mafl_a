@@ -23,6 +23,7 @@ public class ProductController {
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
         SupplierDao productSupplierDataStore = SupplierDaoMem.getInstance();
+        Order sessionOrder = req.session().attribute("order");
 
 
         int catId = req.params(":catId")!=null ? Integer.parseInt(req.params(":catId")) : -1;
@@ -38,6 +39,7 @@ public class ProductController {
         }
         params.put("categories",productCategoryDataStore.getAll());
         params.put("suppliers", productSupplierDataStore.getAll());
+        params.put("totalItemQuantity", sessionOrder.getTotalQuantity());
 
         return new ModelAndView(params, "product/index");
     }
@@ -46,11 +48,14 @@ public class ProductController {
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
         SupplierDao productSupplierDataStore = SupplierDaoMem.getInstance();
+        Order sessionOrder = req.session().attribute("order");
 
         Map params = new HashMap<>();
         params.put("categories",productCategoryDataStore.getAll());
         params.put("suppliers", productSupplierDataStore.getAll());
         params.put("products", productDataStore.getAll());
+        params.put("totalItemQuantity", sessionOrder.getTotalQuantity());
+
         return new ModelAndView(params, "product/index");
     }
 
