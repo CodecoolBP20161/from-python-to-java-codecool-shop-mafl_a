@@ -48,6 +48,10 @@ public class ProductController {
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
         SupplierDao productSupplierDataStore = SupplierDaoMem.getInstance();
+
+        if (req.session().attribute("order") == null) {
+            req.session().attribute("order", new Order());
+        }
         Order sessionOrder = req.session().attribute("order");
 
         Map params = new HashMap<>();
