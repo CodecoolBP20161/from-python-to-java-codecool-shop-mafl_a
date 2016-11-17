@@ -64,7 +64,7 @@
             </div>
         </nav>
     </div>
-
+    <div class="container-fluid">
     <div id="products" class="row list-group products">
 
         <div class="item col-xs-4 col-lg-4" th:each="prod,iterStat : ${products}">
@@ -84,6 +84,7 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
     <div th:replace="footer :: copy"></div>
 </body>
