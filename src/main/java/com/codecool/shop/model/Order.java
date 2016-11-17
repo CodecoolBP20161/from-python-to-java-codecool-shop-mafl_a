@@ -34,6 +34,14 @@ public class Order {
         return total;
     }
 
+    public ArrayList productNames() {
+        ArrayList<Product> prodNames = new ArrayList<>();
+        for (int i = 0; i < lineItems.size(); i++) {
+            prodNames.add(lineItems.get(i).getProduct());
+        }
+        return prodNames;
+    }
+
     // adds a lineitem with a new id
     public void addLineItems(LineItem lineItem) {
         lineItem.setId(lineItems.size() + 1);
@@ -43,18 +51,19 @@ public class Order {
     // checks if a lineitem exists, if not, it creates a new
     public void checkLineItem(Product product) {
         if (lineItems.size() != 0) {
-            for (int i = 0; i < lineItems.size(); i++) {
-                LineItem item = lineItems.get(i);
-                if (item.getProduct().equals(product)) {
-                    int oldQuantity = item.getQuantity();
-                    item.setQuantity(oldQuantity + 1);
-                    lineItems.set(i, item);
-                    System.out.println(item.getQuantity() + "blabla");
-                } else {
-                    addLineItems(new LineItem(product));
-                    System.out.println("line 55");
-                    break;
+            if (productNames().contains(product)) {
+                for (int i = 0; i < lineItems.size(); i++) {
+                    LineItem item = lineItems.get(i);
+                    System.out.println(item);
+                    if (product == item.getProduct()) {
+                        int oldQuantity = item.getQuantity();
+                        item.setQuantity(oldQuantity + 1);
+                        lineItems.set(i, item);
+                        System.out.println(item.getQuantity() + "blabla");
+                    }
                 }
+            } else {
+                addLineItems(new LineItem(product));
             }
         } else {
             addLineItems(new LineItem(product));
