@@ -5,7 +5,7 @@ public class LineItem {
     private Product product;
     private int quantity = 1;
 
-    public LineItem(final Product product){
+    public LineItem(Product product){
         this.product = product;
     }
 
@@ -17,9 +17,9 @@ public class LineItem {
         return this.product;
     }
 
-    public int getQuantity() { return this.quantity; }
+    public int getQuantity() { return quantity; }
 
-    public void setQuantity(int quantity) { this.quantity = quantity; }
+    public void setQuantity(int qua) { quantity = qua; }
 
     // returns the total price of the lineitem
     public float getTotalPrice() {
