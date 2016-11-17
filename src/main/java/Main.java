@@ -21,8 +21,6 @@ public class Main {
         // populate some data for the memory storage
         populateData();
 
-        get("/add/:id", ProductController::addItem, new ThymeleafTemplateEngine());
-
         // Always start with more specific routes
         get("/hello", (req, res) -> "Hello World");
 
@@ -38,15 +36,16 @@ public class Main {
         get("/supplier/:supId", ProductController::renderProducts, new ThymeleafTemplateEngine());
 
         // Always add generic routes to the end
-        get("/", ProductController::renderAll, new ThymeleafTemplateEngine());
+        get("/add-product/:prodId", ProductController::addItem);
 
         // Always add generic routes to the end
-        get("/add-product/:prodId", ProductController::renderAll, new ThymeleafTemplateEngine());
+        get("/", ProductController::renderAll, new ThymeleafTemplateEngine());
+
 
         // Add this line to your project to enable the debug screen
         enableDebugScreen();
 
-        query();
+        //query();
 
     }
 
