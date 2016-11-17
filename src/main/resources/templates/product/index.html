@@ -55,8 +55,8 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a id="cart-popover" class="btn" data-placement="top" title="Carrinho de Compras">
-                                <span class="glyphicon glyphicon-shopping-cart"></span>
+                            <a id="cart-popover" class="btn" data-placement="top" href="#" th:attr="title='Total number of items in your cart: ' + ${totalItemQuantity}">
+                                <span class="glyphicon glyphicon-shopping-cart" th:text="' (' + ${totalItemQuantity} + ')'"></span>
                             </a>
                         </li>
                     </ul>
