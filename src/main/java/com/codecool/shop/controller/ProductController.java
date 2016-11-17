@@ -56,14 +56,16 @@ public class ProductController {
 
     public static ModelAndView addItem(Request req, Response res) {
         Order order;
-        order = req.session().attribute("order") != null ? req.session().attribute("order") : new Order();
+        if (req.session().attribute("order") == null) {
+            req.session().attribute("order", new Order());
+        }
+        order = req.session().attribute("order");
 
         ProductDao productDataStore = ProductDaoMem.getInstance();
         for (Product item : productDataStore.getAll()) {
-            if (item.getId() == Integer.parseInt(req.params(":id"))) order.checkLineItem(item);
+            if (item.getId() == Integer.parseInt(req.params(":prodId"))) order.checkLineItem(item);
         }
-
-        return new ModelAndView(order.getTotalQuantity(), "product/index");
+        res.redirect("/");
+        return null;
     }
-
 }

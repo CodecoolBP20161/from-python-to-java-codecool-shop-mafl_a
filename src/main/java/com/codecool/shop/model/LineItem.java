@@ -1,7 +1,5 @@
 package com.codecool.shop.model;
 
-import java.util.ArrayList;
-
 public class LineItem {
     private int id;
     private Product product;
@@ -22,10 +20,6 @@ public class LineItem {
     public int getQuantity() { return this.quantity; }
 
     public void setQuantity(int quantity) { this.quantity = quantity; }
-
-//    public ArrayList getAll() {
-//
-//    }
 
     // returns the total price of the lineitem
     public float getTotalPrice() {

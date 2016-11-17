@@ -1,16 +1,18 @@
 package com.codecool.shop.model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class Order {
 
-    private ArrayList<LineItem> lineItems = new ArrayList<>();
+    private List<LineItem> lineItems = new ArrayList<>();
 
-    public void setLineItems(ArrayList<LineItem> products) {
-        this.lineItems = products;
-    }
+//    public void setLineItems(List<LineItem> products) {
+//        this.lineItems = products;
+//    }
 
-    public ArrayList getLineItems() {
+    public List getLineItems() {
         return this.lineItems;
     }
 
@@ -40,13 +42,24 @@ public class Order {
 
     // checks if a lineitem exists, if not, it creates a new
     public void checkLineItem(Product product) {
-        for (LineItem item : lineItems) {
-            if (item.getProduct() == product) {
-                item.setQuantity(item.getQuantity() + 1);
-            } else {
-                addLineItems(new LineItem(product));
+        if (lineItems.size() != 0) {
+            Iterator<LineItem> iterator = lineItems.iterator();
+            LineItem item = iterator.next();
+            System.out.println(item.getProduct());
+
+            while (iterator.hasNext()) {
+                System.out.println(product);
+
+                if (item.getProduct() == product) {
+                    item.setQuantity(item.getQuantity() + 1);
+                } else {
+                    addLineItems(new LineItem(product));
+                }
             }
+        } else {
+            addLineItems(new LineItem(product));
         }
+//        System.out.println(lineItems);
     }
 
 }
