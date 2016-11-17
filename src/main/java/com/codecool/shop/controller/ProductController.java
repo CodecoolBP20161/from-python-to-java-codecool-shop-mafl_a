@@ -7,6 +7,8 @@ import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
+import com.codecool.shop.model.Order;
+import com.codecool.shop.model.Product;
 import spark.Request;
 import spark.Response;
 import spark.ModelAndView;
@@ -50,6 +52,18 @@ public class ProductController {
         params.put("suppliers", productSupplierDataStore.getAll());
         params.put("products", productDataStore.getAll());
         return new ModelAndView(params, "product/index");
+    }
+
+    public static ModelAndView addItem(Request req, Response res) {
+        Order order;
+        order = req.session().attribute("order") != null ? req.session().attribute("order") : new Order();
+
+        ProductDao productDataStore = ProductDaoMem.getInstance();
+        for (Product item : productDataStore.getAll()) {
+            if (item.getId() == Integer.parseInt(req.params(":id"))) order.checkLineItem(item);
+        }
+
+        return new ModelAndView(order.getTotalQuantity(), "product/index");
     }
 
 }
