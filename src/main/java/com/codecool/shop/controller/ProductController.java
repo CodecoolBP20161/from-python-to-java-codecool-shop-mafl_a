@@ -20,6 +20,10 @@ public class ProductController {
 
     public static ModelAndView renderProducts(Request req, Response res) {
 
+        if (req.session().attribute("order") == null) {
+            req.session().attribute("order", new Order());
+        }
+
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
         SupplierDao productSupplierDataStore = SupplierDaoMem.getInstance();
