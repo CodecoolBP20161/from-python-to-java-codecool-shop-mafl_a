@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Order {
 
-    private List<LineItem> lineItems = new ArrayList<>();
+    private ArrayList<LineItem> lineItems = new ArrayList<>();
 
     public void setLineItems(ArrayList<LineItem> products) {
         this.lineItems = products;
