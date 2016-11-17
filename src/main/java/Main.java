@@ -5,6 +5,8 @@ import com.codecool.shop.controller.ProductController;
 import com.codecool.shop.dao.*;
 import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.model.*;
+import spark.Request;
+import spark.Response;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
 public class Main {
@@ -18,6 +20,8 @@ public class Main {
 
         // populate some data for the memory storage
         populateData();
+
+        get("/add/:id", ProductController::addItem, new ThymeleafTemplateEngine());
 
         // Always start with more specific routes
         get("/hello", (req, res) -> "Hello World");
