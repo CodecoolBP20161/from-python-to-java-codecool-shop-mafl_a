@@ -7,6 +7,8 @@ import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
+import com.codecool.shop.model.Order;
+import com.codecool.shop.model.Product;
 import spark.Request;
 import spark.Response;
 import spark.ModelAndView;
@@ -18,9 +20,14 @@ public class ProductController {
 
     public static ModelAndView renderProducts(Request req, Response res) {
 
+        if (req.session().attribute("order") == null) {
+            req.session().attribute("order", new Order());
+        }
+
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
         SupplierDao productSupplierDataStore = SupplierDaoMem.getInstance();
+        Order sessionOrder = req.session().attribute("order");
 
 
         int catId = req.params(":catId")!=null ? Integer.parseInt(req.params(":catId")) : -1;
@@ -36,6 +43,7 @@ public class ProductController {
         }
         params.put("categories",productCategoryDataStore.getAll());
         params.put("suppliers", productSupplierDataStore.getAll());
+        params.put("totalItemQuantity", sessionOrder.getTotalQuantity());
 
         return new ModelAndView(params, "product/index");
     }
@@ -45,11 +53,32 @@ public class ProductController {
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
         SupplierDao productSupplierDataStore = SupplierDaoMem.getInstance();
 
+        if (req.session().attribute("order") == null) {
+            req.session().attribute("order", new Order());
+        }
+        Order sessionOrder = req.session().attribute("order");
+
         Map params = new HashMap<>();
         params.put("categories",productCategoryDataStore.getAll());
         params.put("suppliers", productSupplierDataStore.getAll());
         params.put("products", productDataStore.getAll());
+        params.put("totalItemQuantity", sessionOrder.getTotalQuantity());
+
         return new ModelAndView(params, "product/index");
     }
 
+    public static ModelAndView addItem(Request req, Response res) {
+        Order order;
+        if (req.session().attribute("order") == null) {
+            req.session().attribute("order", new Order());
+        }
+        order = req.session().attribute("order");
+
+        ProductDao productDataStore = ProductDaoMem.getInstance();
+        for (Product item : productDataStore.getAll()) {
+            if (item.getId() == Integer.parseInt(req.params(":prodId"))) order.checkLineItem(item);
+        }
+        res.redirect("/");
+        return null;
+    }
 }
