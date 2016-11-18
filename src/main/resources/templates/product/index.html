@@ -26,19 +26,46 @@
 
     <link rel="stylesheet" type="text/css" href="/css/custom.css" />
 </head>
-
 <body>
+    <div class="scrollable" data-spy="scroll" data-target=".navbar" data-offset="50">
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/"><span class="glyphicon glyphicon-home"></span> Codecool Shop</a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" id="dropdownCategories" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" th:text="${category? category.name : 'Select a category'}"></a>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownCategories">
+                                    <li><a href="/category/" th:each="categ,iterStat : ${categories}" th:attr="href='/category/' + ${categ.id}" th:text="${categ.name}"></a></li>
+                                </ul>
+                        </li>
 
-<div class="jumbotron text-center">
-    <h1>Codecool Shop</h1>
-</div>
-
-<div class="container">
-    <div class="well well-sm">
-        <strong th:text="${category.name}">Category Title</strong>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" id="dropdownSuppliers" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" th:text="${supplier? supplier.name : 'Select a supplier'}"></a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownSuppliers">
+                                <li><a href="/supplier/" th:each="suppl,iterStat : ${suppliers}" th:attr="href='/supplier/' + ${suppl.id}" th:text="${suppl.name}"></a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a id="cart-popover" class="btn" data-placement="top" href="#" th:attr="title='Total number of items in your cart: ' + ${totalItemQuantity}">
+                                <span class="glyphicon glyphicon-shopping-cart" th:text="' (' + ${totalItemQuantity} + ')'"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
     </div>
-
-    <div id="products" class="row list-group">
+    <div class="container-fluid">
+    <div id="products" class="row list-group products">
 
         <div class="item col-xs-4 col-lg-4" th:each="prod,iterStat : ${products}">
             <div class="thumbnail">
@@ -51,17 +78,14 @@
                             <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
                         </div>
                         <div class="col-xs-12 col-md-6">
-                            <a class="btn btn-success" href="#">Add to cart</a>
+                            <a class="btn btn-success confirmation" href="/add-product/:prodId" th:attr="href='/add-product/' + ${prod.id}" onclick="return confirm('Add this product to your cart?')">Add to cart</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-</div>
-
-<div th:replace="footer :: copy"></div>
-
+    </div>
+    <div th:replace="footer :: copy"></div>
 </body>
 </html>
