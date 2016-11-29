@@ -7,6 +7,7 @@ import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -18,16 +19,16 @@ import static org.junit.Assert.*;
  * Created by kekesaron on 2016.11.29..
  */
 public class ProductDaoTest {
-    ProductDao productDao;
-    Supplier amazon;
-    ProductCategory tablet;
-    ProductCategory smartphone;
-    Product product;
-    Product product2;
-    List<Product> productList = new ArrayList<>();
+    static ProductDao productDao;
+    static Supplier amazon;
+    static ProductCategory tablet;
+    static ProductCategory smartphone;
+    static Product product;
+    static Product product2;
+    static List<Product> productList = new ArrayList<>();
 
-    @Before
-    public void setUp(){
+    @BeforeClass
+    public static void setUp(){
         productDao = ProductDaoMem.getInstance();
         amazon = new Supplier("Amazon", "Digital content and services");
         smartphone = new ProductCategory("Smartphone", "Hardware", "A pocket sized device, thin, flat mobile computer with a touchscreen display, that lets you stay in touch with the world.");
