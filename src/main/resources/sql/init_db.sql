@@ -1,13 +1,24 @@
 DROP TABLE IF EXISTS products, productCategoies, suppliers;
 
-CREATE TABLE products
-(
-  id varchar(36) PRIMARY KEY,
-  name varchar(40),
-  description text,
-  default_price real,
-  currency money,
-  product_category varchar(40),
-  supplier varchar(40)
+CREATE TABLE product_categories (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(40),
+  description TEXT,
+  department VARCHAR(40)
+);
 
+CREATE TABLE suppliers(
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(40),
+  description TEXT
+);
+
+CREATE TABLE products(
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(40),
+  description TEXT,
+  default_price REAL,
+  currency MONEY,
+  product_category INTEGER REFERENCES product_categories,
+  supplier INTEGER REFERENCES suppliers
 );
