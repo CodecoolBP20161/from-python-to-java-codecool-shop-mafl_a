@@ -21,6 +21,7 @@ public class ProductDaoTest {
     ProductDao productDao;
     Supplier amazon;
     ProductCategory tablet;
+    ProductCategory smartphone;
     Product product;
     Product product2;
     List<Product> productList = new ArrayList<>();
@@ -29,19 +30,26 @@ public class ProductDaoTest {
     public void setUp(){
         productDao = ProductDaoMem.getInstance();
         amazon = new Supplier("Amazon", "Digital content and services");
+        smartphone = new ProductCategory("Smartphone", "Hardware", "A pocket sized device, thin, flat mobile computer with a touchscreen display, that lets you stay in touch with the world.");
         tablet = new ProductCategory("Tablet", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
-        product = new Product("Amazon Fire", 49.9f, "USD", "Fantastic price. Large content ecosystem. Good parental controls. Helpful technical support.", tablet, amazon);
+        product = new Product("Amazon Fire", 49.9f, "USD", "Fantastic price. Large content ecosystem. Good parental controls. Helpful technical support.", smartphone, amazon);
         product2 = new Product("Amazon", 53.9f, "USD", "Fantastic price. Large content ecosystem. Good parental controls. Helpful technical support.", tablet, amazon);
     }
 
+    @After
+    public void tearDown() {
+        productDao.getAll().clear();
+        productList.clear();
+    }
+
     @Test
-    public void testAdd(){
+    public void testAdd() {
         productDao.add(product);
         assertEquals(1, productDao.getAll().size());
     }
 
     @Test
-    public void testFind(){
+    public void testFind() {
         productDao.add(product);
         assertEquals(product, productDao.find(product.getId()));
     }
@@ -56,7 +64,7 @@ public class ProductDaoTest {
     }
 
     @Test
-    public void testGetBySupplier(){
+    public void testGetBySupplier() {
         productDao.add(product);
         productDao.add(product2);
         productList.add(product);
@@ -64,9 +72,12 @@ public class ProductDaoTest {
         assertEquals(productList, productDao.getBy(amazon));
     }
 
-    @After
-    public void after() {
-        productDao.getAll().clear();
-        productList.clear();
+    @Test
+    public void testGetByProductCategory() {
+        productDao.add(product);
+        productDao.add(product2);
+        productList.add(product);
+        assertEquals(productList, productDao.getBy(smartphone));
     }
+
 }
