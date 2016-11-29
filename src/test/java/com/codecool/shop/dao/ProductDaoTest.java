@@ -55,10 +55,18 @@ public class ProductDaoTest {
         assertEquals(productList, productDao.getAll());
     }
 
+    @Test
+    public void testGetBySupplier(){
+        productDao.add(product);
+        productDao.add(product2);
+        productList.add(product);
+        productList.add(product2);
+        assertEquals(productList, productDao.getBy(amazon));
+    }
+
     @After
     public void after() {
         productDao.getAll().clear();
+        productList.clear();
     }
-
-
 }
