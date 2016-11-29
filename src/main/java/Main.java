@@ -3,7 +3,9 @@ import static spark.debug.DebugScreen.enableDebugScreen;
 
 import com.codecool.shop.controller.ProductController;
 import com.codecool.shop.dao.*;
-import com.codecool.shop.dao.implementation.*;
+import com.codecool.shop.dao.implementation.Mem.ProductCategoryDaoMem;
+import com.codecool.shop.dao.implementation.Mem.ProductDaoMem;
+import com.codecool.shop.dao.implementation.Mem.SupplierDaoMem;
 import com.codecool.shop.model.*;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
