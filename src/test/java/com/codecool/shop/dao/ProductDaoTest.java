@@ -50,6 +50,11 @@ public class ProductDaoTest {
     }
 
     @Test
+    public void testFind_NoReturn() {
+        assertEquals(null, productDao.find(3));
+    }
+
+    @Test
     public void testGetAll() {
         assertEquals(productListSupplier, productDao.getAll());
     }
@@ -62,6 +67,12 @@ public class ProductDaoTest {
     @Test
     public void testGetByProductCategory() {
         assertEquals(productListCategory, productDao.getBy(smartphone));
+    }
+
+    @Test
+    public void testGetByProductCategory_EmptyList() {
+        ProductCategory phablet = new ProductCategory("Phablet", "Hardware", "Some nice shit.");
+        assertEquals(new ArrayList<>(), productDao.getBy(phablet));
     }
 
 }
