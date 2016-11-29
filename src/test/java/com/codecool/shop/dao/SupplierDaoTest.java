@@ -34,12 +34,12 @@ public class SupplierDaoTest {
     }
 
     @Test
-    public void find() {
+    public void testFind() {
         assertEquals(amazon, supplierDao.find(amazon.getId()));
     }
 
     @Test
-    public void getAll() throws Exception {
+    public void testGetAll() {
         assertEquals(supplierList, supplierDao.getAll());
     }
 
