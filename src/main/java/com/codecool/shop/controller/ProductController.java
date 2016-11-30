@@ -7,6 +7,7 @@ import com.codecool.shop.dao.implementation.Mem.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.Mem.ProductDaoMem;
 
 import com.codecool.shop.dao.implementation.Mem.SupplierDaoMem;
+import com.codecool.shop.dao.implementation.SupplierDaoJDBC;
 import spark.Request;
 import spark.Response;
 import spark.ModelAndView;
@@ -43,7 +44,7 @@ public class ProductController {
     public static ModelAndView renderAll(Request req, Response res) {
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-        SupplierDao productSupplierDataStore = SupplierDaoMem.getInstance();
+        SupplierDao productSupplierDataStore = SupplierDaoJDBC.getInstance();
 
         Map params = new HashMap<>();
         params.put("categories",productCategoryDataStore.getAll());
