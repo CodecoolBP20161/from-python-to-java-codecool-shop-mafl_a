@@ -17,18 +17,41 @@ public class SupplierDaoJDBC implements SupplierDao {
     private static final String DB_PASSWORD = "postgres";
 
     private static List<Supplier> DATA = new ArrayList<>();
+    private static SupplierDaoJDBC instance = null;
+
+
+    public static SupplierDaoJDBC getInstance() {
+        if (instance == null) {
+            instance = new SupplierDaoJDBC();
+        }
+        return instance;
+    }
 
 
     @Override
     public void add(Supplier supplier) {
-        supplier.setId(DATA.size() + 1);
-        String query = "INSERT INTO suppliers (id, name, description) " +
-                "VALUES ('" + supplier.getId() + "', '" + supplier.getName() + "', '" + supplier.getDescription() + "');";
+        String query = "INSERT INTO suppliers (name, description) " +
+                "VALUES ('" + supplier.getName() + "', '" + supplier.getDescription() + "');";
         executeQuery(query);
     }
 
     @Override
     public Supplier find(int id) {
+        String query = "SELECT * FROM suppliers WHERE id ='" + id + "';";
+        try (Connection connection = getConnection();
+             Statement statement =connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query);
+        ){
+            if (resultSet.next()){
+                return new Supplier(resultSet.getInt("id"),
+                        resultSet.getString("name"),
+                        resultSet.getString("description"));
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
@@ -39,7 +62,21 @@ public class SupplierDaoJDBC implements SupplierDao {
 
     @Override
     public List<Supplier> getAll() {
-        return null;
+        String query = "SELECT * FROM suppliers;";
+        try (Connection connection = getConnection();
+             Statement statement =connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query);
+        ){
+            while (resultSet.next()){
+                Supplier result = new Supplier(resultSet.getInt("id"),
+                        resultSet.getString("name"),
+                        resultSet.getString("description"));
+                DATA.add(result);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return DATA;
     }
 
     private Connection getConnection() throws SQLException {
@@ -51,8 +88,7 @@ public class SupplierDaoJDBC implements SupplierDao {
 
     private void executeQuery(String query) {
         try (Connection connection = getConnection();
-             Statement statement =connection.createStatement();
-        ){
+             Statement statement =connection.createStatement()) {
             statement.execute(query);
 
         } catch (SQLException e) {
