@@ -3,10 +3,7 @@ package com.codecool.shop.dao.implementation;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.model.ProductCategory;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,28 +31,55 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
 
     @Override
     public void add(ProductCategory category) {
-        category.setId(DATA.size() + 1);
-        String query = "INSERT INTO suppliers (id, name, description, department) " +
-                "VALUES ('" + category.getId() + "', '" + category.getName() + "', '" +
-                category.getDescription() +  "', '" + category.getDepartment() + "');";
+        String query = "INSERT INTO product_categories (name, description, department) " +
+                "VALUES ('" +  category.getName() + "', '" + category.getDescription() +  "', '" + category.getDepartment() + "');";
         executeQuery(query);
     }
 
     @Override
-    // still needs to be implemented
     public ProductCategory find(int id) {
-        return DATA.stream().filter(t -> t.getId() == id).findFirst().orElse(null);
+        String query = "SELECT * FROM product_categories WHERE id ='" + id + "';";
+        try (Connection connection = getConnection();
+             Statement statement =connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query);
+        ){
+            if (resultSet.next()){
+                return new ProductCategory(resultSet.getInt("id"),
+                        resultSet.getString("name"),
+                        resultSet.getString("description"),
+                        resultSet.getString("department"));
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
-    // still needs to be implemented
     public void remove(int id) {
-        DATA.remove(find(id));
+        String query = "DELETE FROM product_categories WHERE id = '" + id +"';";
+        executeQuery(query);
     }
 
     @Override
-    // still needs to be implemented
     public List<ProductCategory> getAll() {
+        String query = "SELECT * FROM product_categories;";
+        try (Connection connection = getConnection();
+             Statement statement =connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query);
+        ){
+            while (resultSet.next()){
+                ProductCategory result = new ProductCategory(resultSet.getInt("id"),
+                        resultSet.getString("name"),
+                        resultSet.getString("description"),
+                        resultSet.getString("department"));
+                DATA.add(result);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return DATA;
     }
 
