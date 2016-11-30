@@ -14,13 +14,12 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
     private static final String DATABASE = "jdbc:postgresql://localhost:5432/codecoolshop";
     private static final String DB_USER = "postgres";
     private static final String DB_PASSWORD = "postgres";
+
     private static List<ProductCategory> DATA = new ArrayList<>();
     private static ProductCategoryDaoJDBC instance = null;
 
     /* A private Constructor prevents any other class from instantiating.
      */
-    private ProductCategoryDaoJDBC() {
-    }
 
     public static ProductCategoryDaoJDBC getInstance() {
         if (instance == null) {
@@ -34,14 +33,29 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
         String query = "INSERT INTO product_categories (name, description, department) " +
                 "VALUES ('" +  category.getName() + "', '" + category.getDescription() +  "', '" + category.getDepartment() + "');";
         executeQuery(query);
+        setId(category);
     }
 
-    @Override
+    void setId(ProductCategory category) {
+        String query = "SELECT * FROM product_categories WHERE name ='" + category.getName() + "';";
+        try (Connection connection = getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)
+        ) {
+            if (resultSet.next()) {
+                category.setId(resultSet.getInt("id"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+        @Override
     public ProductCategory find(int id) {
         String query = "SELECT * FROM product_categories WHERE id ='" + id + "';";
         try (Connection connection = getConnection();
              Statement statement =connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query);
+             ResultSet resultSet = statement.executeQuery(query)
         ){
             if (resultSet.next()){
                 return new ProductCategory(resultSet.getInt("id"),

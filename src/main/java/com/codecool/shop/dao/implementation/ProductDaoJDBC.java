@@ -42,6 +42,7 @@ public class ProductDaoJDBC implements ProductDao{
                 + product.getDefaultPrice() + "', '" + product.getDefaultCurrency().getDisplayName() +"', '"
                 + product.getProductCategory().getId() + "', '"
                 + product.getSupplier().getId() + "');";
+        System.out.println(query);
         executeQuery(query);
     }
 

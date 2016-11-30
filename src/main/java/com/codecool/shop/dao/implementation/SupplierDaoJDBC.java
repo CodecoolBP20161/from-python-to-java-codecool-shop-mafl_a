@@ -33,6 +33,21 @@ public class SupplierDaoJDBC implements SupplierDao {
         String query = "INSERT INTO suppliers (name, description) " +
                 "VALUES ('" + supplier.getName() + "', '" + supplier.getDescription() + "');";
         executeQuery(query);
+        setId(supplier);
+    }
+
+    void setId(Supplier supplier) {
+        String query = "SELECT * FROM suppliers WHERE name ='" + supplier.getName() + "';";
+        try (Connection connection = getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)
+        ) {
+            if (resultSet.next()) {
+                supplier.setId(resultSet.getInt("id"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
