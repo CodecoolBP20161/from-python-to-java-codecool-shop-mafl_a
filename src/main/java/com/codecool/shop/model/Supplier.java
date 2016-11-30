@@ -7,16 +7,8 @@ public class Supplier extends BaseModel {
     private ArrayList<Product> products;
 
     public Supplier(String name, String description) {
-        super(name);
+        super(name, description);
         this.products = new ArrayList<>();
-    }
-
-    public void setProducts(ArrayList<Product> products) {
-        this.products = products;
-    }
-
-    public ArrayList getProducts() {
-        return this.products;
     }
 
     public void addProduct(Product product) {
