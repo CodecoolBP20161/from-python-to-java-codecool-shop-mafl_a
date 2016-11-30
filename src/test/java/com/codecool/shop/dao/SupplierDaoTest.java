@@ -39,6 +39,11 @@ public class SupplierDaoTest {
     }
 
     @Test
+    public void testFind_NoReturn() {
+        assertEquals(null, supplierDao.find(3));
+    }
+
+    @Test
     public void testGetAll() {
         assertEquals(supplierList, supplierDao.getAll());
     }

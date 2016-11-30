@@ -41,12 +41,16 @@ public class ProductCategoryDaoTest {
 
     @Test
     public void testFind() {
-        assertEquals(tablet,productCategoryDao.find(tablet.getId()));
+        assertEquals(tablet, productCategoryDao.find(tablet.getId()));
+    }
+
+    @Test
+    public void testFind_NoReturn() {
+        assertEquals(null, productCategoryDao.find(3));
     }
 
     @Test
     public void testGetAll() {
         assertEquals(productCategoryList, productCategoryDao.getAll());
     }
-
 }
