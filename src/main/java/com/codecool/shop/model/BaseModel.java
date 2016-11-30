@@ -18,6 +18,7 @@ public class BaseModel {
         this.description = description;
     }
 
+    public String getDescription() { return description; }
 
     public int getId() {
         return id;
