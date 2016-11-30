@@ -12,6 +12,11 @@ public class ProductCategory extends BaseModel {
         this.products = new ArrayList<>();
     }
 
+    public ProductCategory(int id, String name, String description, String department) {
+        super(id, name, description);
+        this.department = department;
+    }
+
     public void addProduct(Product product) {
         this.products.add(product);
     }

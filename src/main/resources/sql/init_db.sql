@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS products, productCategoies, suppliers;
+DROP TABLE IF EXISTS products, product_categories, suppliers;
 
 CREATE TABLE product_categories (
   id SERIAL PRIMARY KEY,
