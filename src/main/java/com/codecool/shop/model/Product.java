@@ -40,6 +40,26 @@ public class Product extends BaseModel {
         this.supplier.addProduct(this);
     }
 
+    public float getDefaultPrice() {
+        return defaultPrice;
+    }
+
+    public void setDefaultPrice(float defaultPrice) {
+        this.defaultPrice = defaultPrice;
+    }
+
+    public Currency getDefaultCurrency() {
+        return defaultCurrency;
+    }
+
+    public void setDefaultCurrency(Currency defaultCurrency) {
+        this.defaultCurrency = defaultCurrency;
+    }
+
+    public String getPrice() {
+        return String.valueOf(this.defaultPrice) + " " + this.defaultCurrency.toString();
+    }
+
     @Override
     public String toString() {
         return String.format("id: %1$d, " +
