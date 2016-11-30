@@ -2,6 +2,7 @@ package com.codecool.shop.dao.implementation;
 
 
 import com.codecool.shop.dao.ProductDao;
+import com.codecool.shop.dao.implementation.Mem.ProductDaoMem;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
@@ -18,6 +19,8 @@ public class ProductDaoJDBC implements ProductDao{
     private static final String DB_USER = "postgres";
     private static final String DB_PASSWORD = "postgres";
 
+    private static ProductDaoJDBC instance = null;
+
     private Connection getConnection() throws SQLException {
         return DriverManager.getConnection(
                 DATABASE,
@@ -25,13 +28,20 @@ public class ProductDaoJDBC implements ProductDao{
                 DB_PASSWORD);
     }
 
+    public static ProductDaoJDBC getInstance() {
+        if (instance == null) {
+            instance = new ProductDaoJDBC();
+        }
+        return instance;
+    }
+
     @Override
     public void add(Product product) {
-        String query = "INSERT INTO todos (" +
-                "name, description, default_price, currency, product_category, supplier) " +
-                "VALUES ('" + product.getName() + "', '" + product.getDescription() + "', '"
-                + product.getPrice() + "', '" + product.getProductCategory() + "', '"
-                + product.getSupplier() + "');";
+        String query = "INSERT INTO products (name, description, default_price, currency, product_category, supplier)"
+                + "VALUES ('" + product.getName() + "', '" + product.getDescription() + "', '"
+                + product.getDefaultPrice() + "', '" + product.getDefaultCurrency().getDisplayName() +"', '"
+                + product.getProductCategory().getId() + "', '"
+                + product.getSupplier().getId() + "');";
         executeQuery(query);
     }
 

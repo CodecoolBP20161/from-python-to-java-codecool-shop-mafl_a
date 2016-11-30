@@ -7,6 +7,7 @@ import com.codecool.shop.dao.implementation.Mem.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.Mem.ProductDaoMem;
 
 import com.codecool.shop.dao.implementation.Mem.SupplierDaoMem;
+import com.codecool.shop.dao.implementation.ProductDaoJDBC;
 import com.codecool.shop.dao.implementation.SupplierDaoJDBC;
 import spark.Request;
 import spark.Response;
@@ -19,7 +20,7 @@ public class ProductController {
 
     public static ModelAndView renderProducts(Request req, Response res) {
 
-        ProductDao productDataStore = ProductDaoMem.getInstance();
+        ProductDao productDataStore = ProductDaoJDBC.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
         SupplierDao productSupplierDataStore = SupplierDaoMem.getInstance();
 

@@ -6,6 +6,7 @@ import com.codecool.shop.dao.*;
 import com.codecool.shop.dao.implementation.Mem.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.Mem.ProductDaoMem;
 import com.codecool.shop.dao.implementation.Mem.SupplierDaoMem;
+import com.codecool.shop.dao.implementation.ProductDaoJDBC;
 import com.codecool.shop.dao.implementation.SupplierDaoJDBC;
 import com.codecool.shop.model.*;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
@@ -45,7 +46,7 @@ public class Main {
 
     public static void populateData() {
 
-        ProductDao productDataStore = ProductDaoMem.getInstance();
+        ProductDao productDataStore = ProductDaoJDBC.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
         SupplierDao supplierDataStore = SupplierDaoJDBC.getInstance();
 
