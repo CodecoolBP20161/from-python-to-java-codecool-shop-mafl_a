@@ -42,5 +42,11 @@
             <artifactId>spark-debug-tools</artifactId>
             <version>0.5</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/postgresql/postgresql -->
+        <dependency>
+            <groupId>postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>9.4.1208-jdbc42-atlassian-hosted</version>
+        </dependency>
     </dependencies>
 </project>
