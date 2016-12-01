@@ -18,7 +18,7 @@ CREATE TABLE products(
   name VARCHAR(40),
   description TEXT,
   default_price REAL,
-  currency MONEY,
+  currency TEXT,
   product_category INTEGER REFERENCES product_categories,
   supplier INTEGER REFERENCES suppliers
 );
