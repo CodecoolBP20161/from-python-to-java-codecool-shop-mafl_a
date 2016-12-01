@@ -16,7 +16,6 @@ public class SupplierDaoJDBC implements SupplierDao {
     private static final String DB_USER = "postgres";
     private static final String DB_PASSWORD = "postgres";
 
-    private static List<Supplier> DATA = new ArrayList<>();
     private static SupplierDaoJDBC instance = null;
 
 
@@ -78,6 +77,7 @@ public class SupplierDaoJDBC implements SupplierDao {
 
     @Override
     public List<Supplier> getAll() {
+        List<Supplier> suppliers = new ArrayList<>();
         String query = "SELECT * FROM suppliers;";
         try (Connection connection = getConnection();
              Statement statement =connection.createStatement();
@@ -87,12 +87,12 @@ public class SupplierDaoJDBC implements SupplierDao {
                 Supplier result = new Supplier(resultSet.getInt("id"),
                         resultSet.getString("name"),
                         resultSet.getString("description"));
-                DATA.add(result);
+                suppliers.add(result);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return DATA;
+        return suppliers;
     }
 
     private Connection getConnection() throws SQLException {

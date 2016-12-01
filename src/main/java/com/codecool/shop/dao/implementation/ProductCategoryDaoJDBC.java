@@ -12,7 +12,6 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
     private static final String DB_USER = "postgres";
     private static final String DB_PASSWORD = "postgres";
 
-    private static List<ProductCategory> DATA = new ArrayList<>();
     private static ProductCategoryDaoJDBC instance = null;
 
     /* A private Constructor prevents any other class from instantiating.
@@ -76,6 +75,8 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
 
     @Override
     public List<ProductCategory> getAll() {
+        List<ProductCategory> categories = new ArrayList<>();
+
         String query = "SELECT * FROM product_categories;";
         try (Connection connection = getConnection();
              Statement statement =connection.createStatement();
@@ -86,12 +87,12 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
                         resultSet.getString("name"),
                         resultSet.getString("description"),
                         resultSet.getString("department"));
-                DATA.add(result);
+                categories.add(result);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return DATA;
+        return categories;
     }
 
     private Connection getConnection() throws SQLException {
