@@ -23,6 +23,9 @@ public class Main {
         get("/supplier/:supId", ProductController::renderProducts, new ThymeleafTemplateEngine());
 
         // Always add generic routes to the end
+        get("/add-product/:prodId", ProductController::addItem);
+
+        // Always add generic routes to the end
         get("/", ProductController::renderAll, new ThymeleafTemplateEngine());
 
         // Add this line to your project to enable the debug screen
