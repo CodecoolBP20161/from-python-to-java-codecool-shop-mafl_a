@@ -9,6 +9,7 @@ import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
 
@@ -96,16 +97,65 @@ public class ProductDaoJDBC implements ProductDao {
 
     @Override
     public List<Product> getAll() {
+        List<Product> products = new ArrayList<>();
+        String query = "SELECT * FROM products;";
+        try (Connection connection = getConnection();
+             Statement statement =connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+            while (resultSet.next()) {
+                Currency currency = Currency.getInstance(resultSet.getString("currency"));
+
+                ProductCategoryDao productData = new ProductCategoryDaoJDBC();
+                ProductCategory category = productData.find(resultSet.getInt("product_category"));
+
+                SupplierDao supplierData = new SupplierDaoJDBC();
+                Supplier supplier = supplierData.find(resultSet.getInt("supplier"));
+
+                products.add(new Product(resultSet.getInt("id"),
+                        resultSet.getString("name"),
+                        resultSet.getFloat("default_price"),
+                        currency,
+                        resultSet.getString("description"),
+                        category,
+                        supplier));
+            }
+            return products;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
     @Override
     public List<Product> getBy(Supplier supplier) {
+        List<Product> products = new ArrayList<>();
+        String query = "SELECT * FROM products WHERE supplier='" + supplier.getId() + "';";
+        try (Connection connection = getConnection();
+             Statement statement =connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+            while (resultSet.next()) {
+                Currency currency = Currency.getInstance(resultSet.getString("currency"));
+
+                ProductCategoryDao productData = new ProductCategoryDaoJDBC();
+                ProductCategory category = productData.find(resultSet.getInt("product_category"));
+
+                products.add(new Product(resultSet.getInt("id"),
+                        resultSet.getString("name"),
+                        resultSet.getFloat("default_price"),
+                        currency,
+                        resultSet.getString("description"),
+                        category,
+                        supplier));
+            }
+            return products;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
-
+    
     @Override
-    public List<Product> getBy(ProductCategory productCategory) {
+    public List<Product> getBy(ProductCategory productCategory){
         return null;
     }
 
