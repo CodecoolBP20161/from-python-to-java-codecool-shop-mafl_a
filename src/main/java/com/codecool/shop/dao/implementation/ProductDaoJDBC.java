@@ -68,11 +68,12 @@ public class ProductDaoJDBC implements ProductDao {
              ResultSet resultSet = statement.executeQuery(query)) {
             Currency currency = Currency.getInstance(resultSet.getString("currency"));
 
-            ProductCategoryDao productData = new ProductCategoryDaoJDBC();
+            ProductCategoryDao productData = ProductCategoryDaoJDBC.getInstance();
             ProductCategory category = productData.find(resultSet.getInt("product_category"));
 
-            SupplierDao supplierData = new SupplierDaoJDBC();
+            SupplierDao supplierData = SupplierDaoJDBC.getInstance();
             Supplier supplier = supplierData.find(resultSet.getInt("supplier"));
+
             if (resultSet.next()){
                 return new Product(resultSet.getInt("id"),
                         resultSet.getString("name"),
@@ -92,7 +93,8 @@ public class ProductDaoJDBC implements ProductDao {
 
     @Override
     public void remove(int id) {
-
+        String query = "DELETE FROM products WHERE id = '" + id +"';";
+        executeQuery(query);
     }
 
     @Override
@@ -105,10 +107,10 @@ public class ProductDaoJDBC implements ProductDao {
             while (resultSet.next()) {
                 Currency currency = Currency.getInstance(resultSet.getString("currency"));
 
-                ProductCategoryDao productData = new ProductCategoryDaoJDBC();
+                ProductCategoryDao productData = ProductCategoryDaoJDBC.getInstance();
                 ProductCategory category = productData.find(resultSet.getInt("product_category"));
 
-                SupplierDao supplierData = new SupplierDaoJDBC();
+                SupplierDao supplierData = SupplierDaoJDBC.getInstance();
                 Supplier supplier = supplierData.find(resultSet.getInt("supplier"));
 
                 products.add(new Product(resultSet.getInt("id"),
@@ -136,7 +138,7 @@ public class ProductDaoJDBC implements ProductDao {
             while (resultSet.next()) {
                 Currency currency = Currency.getInstance(resultSet.getString("currency"));
 
-                ProductCategoryDao productData = new ProductCategoryDaoJDBC();
+                ProductCategoryDao productData = ProductCategoryDaoJDBC.getInstance();
                 ProductCategory category = productData.find(resultSet.getInt("product_category"));
 
                 products.add(new Product(resultSet.getInt("id"),
@@ -156,7 +158,29 @@ public class ProductDaoJDBC implements ProductDao {
     
     @Override
     public List<Product> getBy(ProductCategory productCategory){
-        return null;
+        List<Product> products = new ArrayList<>();
+        String query = "SELECT * FROM products WHERE product_category='" + productCategory.getId() + "';";
+        try (Connection connection = getConnection();
+             Statement statement =connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+            while (resultSet.next()) {
+                Currency currency = Currency.getInstance(resultSet.getString("currency"));
+
+                SupplierDao supplierData = SupplierDaoJDBC.getInstance();
+                Supplier supplier = supplierData.find(resultSet.getInt("supplier"));
+
+                products.add(new Product(resultSet.getInt("id"),
+                        resultSet.getString("name"),
+                        resultSet.getFloat("default_price"),
+                        currency,
+                        resultSet.getString("description"),
+                        productCategory,
+                        supplier));
+            }
+            return products;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }return null;
     }
 
     private void executeQuery(String query) {
