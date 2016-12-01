@@ -10,11 +10,45 @@ public class Product extends BaseModel {
     private Supplier supplier;
 
 
-    public Product(String name, float defaultPrice, String currencyString, String description, ProductCategory productCategory, Supplier supplier) {
+    public Product(String name, float defaultPrice, String defaultCurrency, String description, ProductCategory productCategory, Supplier supplier) {
         super(name, description);
-        this.setPrice(defaultPrice, currencyString);
-        this.setSupplier(supplier);
-        this.setProductCategory(productCategory);
+        this.defaultPrice = defaultPrice;
+        this.defaultCurrency = Currency.getInstance(defaultCurrency);
+        this.productCategory = productCategory;
+        this.supplier = supplier;
+    }
+
+    public Product(int id, String name, float defaultPrice, Currency defaultCurrency, String description, ProductCategory productCategory, Supplier supplier) {
+        super(id, name, description);
+        this.defaultPrice = defaultPrice;
+        this.defaultCurrency = defaultCurrency;
+        this.productCategory = productCategory;
+        this.supplier = supplier;
+//        this(defaultPrice, defaultCurrency, productCategory, supplier);
+    }
+
+
+//    public void setPrice(float price, String currency) {
+//        this.defaultPrice = price;
+//        this.defaultCurrency = Currency.getInstance(currency);
+//    }
+
+    public ProductCategory getProductCategory() {
+        return productCategory;
+    }
+
+    public void setProductCategory(ProductCategory productCategory) {
+        this.productCategory = productCategory;
+//        this.productCategory.addProduct(this);
+    }
+
+    public Supplier getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(Supplier supplier) {
+        this.supplier = supplier;
+//        this.supplier.addProduct(this);
     }
 
     public float getDefaultPrice() {
@@ -35,29 +69,6 @@ public class Product extends BaseModel {
 
     public String getPrice() {
         return String.valueOf(this.defaultPrice) + " " + this.defaultCurrency.toString();
-    }
-
-    public void setPrice(float price, String currency) {
-        this.defaultPrice = price;
-        this.defaultCurrency = Currency.getInstance(currency);
-    }
-
-    public ProductCategory getProductCategory() {
-        return productCategory;
-    }
-
-    public void setProductCategory(ProductCategory productCategory) {
-        this.productCategory = productCategory;
-        this.productCategory.addProduct(this);
-    }
-
-    public Supplier getSupplier() {
-        return supplier;
-    }
-
-    public void setSupplier(Supplier supplier) {
-        this.supplier = supplier;
-        this.supplier.addProduct(this);
     }
 
     @Override

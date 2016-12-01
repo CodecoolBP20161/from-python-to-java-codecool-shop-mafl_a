@@ -1,4 +1,4 @@
-package com.codecool.shop.dao.implementation;
+package com.codecool.shop.dao.implementation.Mem;
 
 
 import com.codecool.shop.dao.ProductDao;
@@ -36,11 +36,6 @@ public class ProductDaoMem implements ProductDao {
     @Override
     public Product find(int id) {
         return DATA.stream().filter(t -> t.getId() == id).findFirst().orElse(null);
-    }
-
-    @Override
-    public Product find(String name) {
-        return DATA.stream().filter(t -> t.getName().equals(name)).findFirst().orElse(null);
     }
 
     @Override
