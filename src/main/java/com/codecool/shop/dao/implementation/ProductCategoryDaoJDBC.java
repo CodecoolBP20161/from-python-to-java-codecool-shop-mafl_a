@@ -7,9 +7,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by franka on 2016.11.29..
- */
 public class ProductCategoryDaoJDBC implements ProductCategoryDao {
     private static final String DATABASE = "jdbc:postgresql://localhost:5432/codecoolshop";
     private static final String DB_USER = "postgres";
@@ -50,7 +47,7 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
         }
     }
 
-        @Override
+    @Override
     public ProductCategory find(int id) {
         String query = "SELECT * FROM product_categories WHERE id ='" + id + "';";
         try (Connection connection = getConnection();
