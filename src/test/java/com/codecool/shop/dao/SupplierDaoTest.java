@@ -1,6 +1,6 @@
 package com.codecool.shop.dao;
 
-import com.codecool.shop.dao.implementation.SupplierDaoMem;
+import com.codecool.shop.dao.implementation.Mem.SupplierDaoMem;
 import com.codecool.shop.model.Supplier;
 import org.junit.BeforeClass;
 import org.junit.Test;
