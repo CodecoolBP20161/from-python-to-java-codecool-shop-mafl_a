@@ -3,15 +3,15 @@ package com.codecool.shop.controller;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
-import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
-import com.codecool.shop.dao.implementation.ProductDaoMem;
+import com.codecool.shop.dao.implementation.ProductCategoryDaoJDBC;
+import com.codecool.shop.dao.implementation.ProductDaoJDBC;
+import com.codecool.shop.dao.implementation.SupplierDaoJDBC;
+import spark.ModelAndView;
 
-import com.codecool.shop.dao.implementation.SupplierDaoMem;
 import com.codecool.shop.model.Order;
 import com.codecool.shop.model.Product;
 import spark.Request;
 import spark.Response;
-import spark.ModelAndView;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,10 +24,10 @@ public class ProductController {
             req.session().attribute("order", new Order());
         }
 
-        ProductDao productDataStore = ProductDaoMem.getInstance();
-        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-        SupplierDao productSupplierDataStore = SupplierDaoMem.getInstance();
         Order sessionOrder = req.session().attribute("order");
+        ProductDao productDataStore = ProductDaoJDBC.getInstance();
+        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoJDBC.getInstance();
+        SupplierDao productSupplierDataStore = SupplierDaoJDBC.getInstance();
 
 
         int catId = req.params(":catId")!=null ? Integer.parseInt(req.params(":catId")) : -1;
@@ -49,9 +49,9 @@ public class ProductController {
     }
 
     public static ModelAndView renderAll(Request req, Response res) {
-        ProductDao productDataStore = ProductDaoMem.getInstance();
-        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-        SupplierDao productSupplierDataStore = SupplierDaoMem.getInstance();
+        ProductDao productDataStore = ProductDaoJDBC.getInstance();
+        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoJDBC.getInstance();
+        SupplierDao productSupplierDataStore = SupplierDaoJDBC.getInstance();
 
         if (req.session().attribute("order") == null) {
             req.session().attribute("order", new Order());
@@ -59,7 +59,7 @@ public class ProductController {
         Order sessionOrder = req.session().attribute("order");
 
         Map params = new HashMap<>();
-        params.put("categories",productCategoryDataStore.getAll());
+        params.put("categories", productCategoryDataStore.getAll());
         params.put("suppliers", productSupplierDataStore.getAll());
         params.put("products", productDataStore.getAll());
         params.put("totalItemQuantity", sessionOrder.getTotalQuantity());
@@ -74,7 +74,7 @@ public class ProductController {
         }
         order = req.session().attribute("order");
 
-        ProductDao productDataStore = ProductDaoMem.getInstance();
+        ProductDao productDataStore = ProductDaoJDBC.getInstance();
         for (Product item : productDataStore.getAll()) {
             if (item.getId() == Integer.parseInt(req.params(":prodId"))) order.checkLineItem(item);
         }
