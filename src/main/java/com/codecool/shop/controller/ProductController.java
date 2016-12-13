@@ -41,6 +41,8 @@ public class ProductController {
             params.put("supplier", productSupplierDataStore.find(supId));
             params.put("products", productDataStore.getBy(productSupplierDataStore.find(supId)));
         }
+        params.put("order", sessionOrder);
+        params.put("lineItems", sessionOrder.getLineItems());
         params.put("categories",productCategoryDataStore.getAll());
         params.put("suppliers", productSupplierDataStore.getAll());
         params.put("totalItemQuantity", sessionOrder.getTotalQuantity());
@@ -59,6 +61,8 @@ public class ProductController {
         Order sessionOrder = req.session().attribute("order");
 
         Map params = new HashMap<>();
+        params.put("order", sessionOrder);
+        params.put("lineItems", sessionOrder.getLineItems());
         params.put("categories", productCategoryDataStore.getAll());
         params.put("suppliers", productSupplierDataStore.getAll());
         params.put("products", productDataStore.getAll());
