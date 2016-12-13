@@ -1,20 +1,16 @@
 package com.codecool.shop.model;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 public class Order {
 
+    @Getter
     private List<LineItem> lineItems = new ArrayList<>();
 
-//    public void setLineItems(List<LineItem> products) {
-//        this.lineItems = products;
-//    }
-
-    public List getLineItems() {
-        return this.lineItems;
-    }
 
     // returns the total price in cart (lineitem price*quantity)
     public float getCartTotalPrice() {

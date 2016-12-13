@@ -1,25 +1,23 @@
 package com.codecool.shop.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class LineItem {
+
+    @Getter @Setter
     private int id;
+
+    @Getter @Setter
     private Product product;
-    private int quantity = 1;
+
+    @Getter @Setter
+    private int quantity;
 
     public LineItem(Product product){
         this.product = product;
+        quantity = 1;
     }
-
-    public int getId() {return this.id; }
-
-    public void setId(int id) {this.id = id;}
-
-    public Product getProduct() {
-        return this.product;
-    }
-
-    public int getQuantity() { return quantity; }
-
-    public void setQuantity(int qua) { quantity = qua; }
 
     // returns the total price of the lineitem
     public float getTotalPrice() {
