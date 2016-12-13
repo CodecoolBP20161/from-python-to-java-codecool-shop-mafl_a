@@ -66,3 +66,7 @@
 .dropdown {
     padding-left: 10px;
 }
+
+input[type="number"] {
+    width:50px;
+}
