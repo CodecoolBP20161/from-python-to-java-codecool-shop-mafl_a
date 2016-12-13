@@ -19,9 +19,9 @@ public class LineItem {
         quantity = 1;
     }
 
-    // returns the total price of the lineitem
+    // returns the total price of the line item
     public float getTotalPrice() {
-        return product.getDefaultPrice() * this.quantity;
+        return product.getDefaultPrice() * quantity;
     }
 
     public String toString() {
