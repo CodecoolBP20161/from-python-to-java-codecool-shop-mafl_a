@@ -37,13 +37,8 @@ public class Product extends BaseModel {
 //        this(defaultPrice, defaultCurrency, productCategory, supplier);
     }
 
-    public ProductCategory getProductCategory() {
-        return productCategory;
-    }
-
-    public void setProductCategory(ProductCategory productCategory) {
-        this.productCategory = productCategory;
-//        this.productCategory.addProduct(this);
+    public String getPrice() {
+        return String.valueOf(this.defaultPrice) + " " + this.defaultCurrency.toString();
     }
 
     @Override
