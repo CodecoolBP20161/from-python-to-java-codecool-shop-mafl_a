@@ -1,6 +1,7 @@
-package com.codecool.shop.dao;
+package com.codecool.shop.dao.DaoTests;
 
 
+import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.implementation.Mem.ProductCategoryDaoMem;
 import com.codecool.shop.model.ProductCategory;
 import org.junit.BeforeClass;
