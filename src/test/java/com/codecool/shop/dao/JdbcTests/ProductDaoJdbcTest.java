@@ -1,11 +1,8 @@
-package com.codecool.shop.dao.DaoTests;
+package com.codecool.shop.dao.JdbcTests;
 
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
-import com.codecool.shop.dao.implementation.Mem.ProductCategoryDaoMem;
-import com.codecool.shop.dao.implementation.Mem.ProductDaoMem;
-import com.codecool.shop.dao.implementation.Mem.SupplierDaoMem;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoJDBC;
 import com.codecool.shop.dao.implementation.ProductDaoJDBC;
 import com.codecool.shop.dao.implementation.SupplierDaoJDBC;
@@ -15,15 +12,15 @@ import com.codecool.shop.model.Supplier;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-
-
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
-public class ProductDaoTest {
-
+/**
+ * Created by kekesaron on 2016.12.13..
+ */
+public class ProductDaoJdbcTest {
     static Supplier amazon;
     static ProductCategory tablet;
     static ProductCategory smartphone;
@@ -39,9 +36,9 @@ public class ProductDaoTest {
 
     @BeforeClass
     public static void setUp(){
-        productDao = ProductDaoMem.getInstance();
-        categoryDao = ProductCategoryDaoMem.getInstance();
-        supplierDao = SupplierDaoMem.getInstance();
+        productDao = ProductDaoJDBC.getInstance();
+        categoryDao = ProductCategoryDaoJDBC.getInstance();
+        supplierDao = SupplierDaoJDBC.getInstance();
 
         amazon = new Supplier("Amazon", "Digital content and services");
         supplierDao.add(amazon);

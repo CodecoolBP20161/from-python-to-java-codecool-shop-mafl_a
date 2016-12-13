@@ -1,4 +1,4 @@
-package com.codecool.shop.dao.DaoTests;
+package com.codecool.shop.dao.MemTests;
 
 import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.dao.implementation.Mem.SupplierDaoMem;
@@ -11,7 +11,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class SupplierDaoTest {
+public class SupplierDaoMemTest {
 
     static SupplierDao supplierDao;
     static Supplier amazon;
