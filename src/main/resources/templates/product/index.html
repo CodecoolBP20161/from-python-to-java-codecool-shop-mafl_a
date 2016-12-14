@@ -75,7 +75,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="cartModalLabel">Content of yur Shopping cart</h4>
+                    <h4 class="modal-title" id="cartModalLabel">Content of your Shopping cart</h4>
                 </div>
                 <form>
                 <div class="modal-body">
@@ -96,10 +96,16 @@
                                     <!--<label for="quantity-input" class="col-xs-2 col-form-label">Number</label>-->
                                     <input class="form-control" type="number" th:value="${lineItem.quantity}" id="quantity-input"></input>
                                 </td>
-                                <td th:text="${lineItem.product.getPrice()} + ' ' + ${lineItem.product.defaultCurrency}">Price</td>
+                                <td th:text="${lineItem.product.getPrice()}">Price</td>
                                 <td th:text="${lineItem.getTotalPrice()} + ' ' + ${lineItem.product.defaultCurrency}">Subtotal</td>
                             </tr>
+                            <tr>
+                                <th>Total price: </th>
+                                <td></td>
+                                <td></td>
+                                <td th:text="${order.getCartTotalPrice()} + ' USD'">Total price</td></tr>
                         </tbody>
+
                     </table>
                 </div>
                 <div class="modal-footer">
