@@ -16,13 +16,19 @@ public class Main {
         // Always start with more specific routes
         get("/hello", (req, res) -> "Hello World");
 
+
+
+        get ("/checkout", ProductController::checkout, new ThymeleafTemplateEngine());
+
+        post("/checkout", ProductController::saveUserData, new ThymeleafTemplateEngine());
+
         // Product category routes
         get("/category/:catId", ProductController::renderProducts, new ThymeleafTemplateEngine());
 
         // Product supplier routes
         get("/supplier/:supId", ProductController::renderProducts, new ThymeleafTemplateEngine());
 
-        // Always add generic routes to the end
+        // Product adding route
         get("/add-product/:prodId", ProductController::addItem);
 
         // Always add generic routes to the end

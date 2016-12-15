@@ -66,6 +66,37 @@
 .dropdown {
     padding-left: 10px;
 }
+
+input[type="number"] {
+    width:70px;
+}
+
 .link {
     cursor: pointer;
+}
+
+.outer {
+    display: table;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.middle {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.inner {
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    width: 60%;
+}
+
+span.req, .required {
+    color: red;
+    font-weight: bold;
 }

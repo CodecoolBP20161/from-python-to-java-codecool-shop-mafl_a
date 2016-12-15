@@ -1,12 +1,22 @@
 package com.codecool.shop.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Currency;
 
 public class Product extends BaseModel {
 
+    @Getter @Setter
     private float defaultPrice;
+
+    @Getter @Setter
     private Currency defaultCurrency;
+
+    @Getter @Setter
     private ProductCategory productCategory;
+
+    @Getter @Setter
     private Supplier supplier;
 
 
@@ -57,6 +67,7 @@ public class Product extends BaseModel {
     public void setDefaultCurrency(Currency defaultCurrency) {
         this.defaultCurrency = defaultCurrency;
     }
+
 
     public String getPrice() {
         return String.valueOf(this.defaultPrice) + " " + this.defaultCurrency.toString();
