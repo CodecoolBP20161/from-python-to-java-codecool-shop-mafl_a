@@ -1,9 +1,14 @@
 package com.codecool.shop.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.ArrayList;
 
 
 public class Supplier extends BaseModel {
+
+    @Getter @Setter
     private ArrayList<Product> products;
 
     public Supplier(String name, String description) {
@@ -13,19 +18,6 @@ public class Supplier extends BaseModel {
 
     public Supplier(int id, String name, String description) {
         super(id, name, description);
-    }
-
-    public void addProduct(Product product) {
-        this.products.add(product);
-    }
-
-
-    public void setProducts(ArrayList<Product> products) {
-        this.products = products;
-    }
-
-    public ArrayList getProducts() {
-        return this.products;
     }
 
     public String toString() {

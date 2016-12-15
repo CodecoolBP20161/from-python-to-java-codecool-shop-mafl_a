@@ -41,6 +41,8 @@ public class ProductController {
             params.put("supplier", productSupplierDataStore.find(supId));
             params.put("products", productDataStore.getBy(productSupplierDataStore.find(supId)));
         }
+        params.put("order", sessionOrder);
+        params.put("lineItems", sessionOrder.getLineItems());
         params.put("categories",productCategoryDataStore.getAll());
         params.put("suppliers", productSupplierDataStore.getAll());
         params.put("totalItemQuantity", sessionOrder.getTotalQuantity());
@@ -59,6 +61,8 @@ public class ProductController {
         Order sessionOrder = req.session().attribute("order");
 
         Map params = new HashMap<>();
+        params.put("order", sessionOrder);
+        params.put("lineItems", sessionOrder.getLineItems());
         params.put("categories", productCategoryDataStore.getAll());
         params.put("suppliers", productSupplierDataStore.getAll());
         params.put("products", productDataStore.getAll());
@@ -73,10 +77,15 @@ public class ProductController {
             req.session().attribute("order", new Order());
         }
         order = req.session().attribute("order");
-
+        int quantity = Integer.parseInt(req.queryParams("quantity"));
         ProductDao productDataStore = ProductDaoJDBC.getInstance();
         for (Product item : productDataStore.getAll()) {
-            if (item.getId() == Integer.parseInt(req.params(":prodId"))) order.checkLineItem(item);
+            if (item.getId() == Integer.parseInt(req.params(":prodId"))) {
+                for (int i = 0; i <quantity ; i++) {
+                    order.checkLineItem(item);
+                }
+
+            }
         }
         res.redirect("/");
         return null;
