@@ -1,6 +1,7 @@
 package com.codecool.shop.model;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -8,9 +9,35 @@ import java.util.List;
 
 public class Order {
 
-    @Getter
-    private List<LineItem> lineItems = new ArrayList<>();
+    @Getter @Setter
+    private int id;
 
+    @Getter @Setter
+    private String firstName;
+
+    @Getter @Setter
+    private String lastName;
+
+    @Getter @Setter
+    private String email;
+
+    @Getter @Setter
+    private String phoneNumber;
+
+    @Getter @Setter
+    private String address;
+
+    @Getter @Setter
+    private String city;
+
+    @Getter @Setter
+    private String country;
+
+    @Getter @Setter
+    private String zipCode;
+
+    @Getter @Setter
+    private List<LineItem> lineItems = new ArrayList<>();
 
     // returns the total price in cart (lineitem price*quantity)
     public double getCartTotalPrice() {
