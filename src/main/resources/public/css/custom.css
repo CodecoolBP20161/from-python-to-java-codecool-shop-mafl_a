@@ -70,3 +70,7 @@
 input[type="number"] {
     width:70px;
 }
+
+.link {
+    cursor: pointer;
+}
