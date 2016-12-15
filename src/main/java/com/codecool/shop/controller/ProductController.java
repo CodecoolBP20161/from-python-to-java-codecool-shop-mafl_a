@@ -77,10 +77,15 @@ public class ProductController {
             req.session().attribute("order", new Order());
         }
         order = req.session().attribute("order");
-
+        int quantity = Integer.parseInt(req.queryParams("quantity"));
         ProductDao productDataStore = ProductDaoJDBC.getInstance();
         for (Product item : productDataStore.getAll()) {
-            if (item.getId() == Integer.parseInt(req.params(":prodId"))) order.checkLineItem(item);
+            if (item.getId() == Integer.parseInt(req.params(":prodId"))) {
+                for (int i = 0; i <quantity ; i++) {
+                    order.checkLineItem(item);
+                }
+
+            }
         }
         res.redirect("/");
         return null;
