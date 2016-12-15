@@ -66,3 +66,6 @@
 .dropdown {
     padding-left: 10px;
 }
+.link {
+    cursor: pointer;
+}

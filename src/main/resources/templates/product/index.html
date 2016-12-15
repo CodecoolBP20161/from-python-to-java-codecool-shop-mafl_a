@@ -39,14 +39,14 @@
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
-                        <li class="dropdown">
+                        <li class="dropdown link">
                             <a class="dropdown-toggle" id="dropdownCategories" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" th:text="${category? category.name : 'Select a category'}"></a>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownCategories">
                                     <li><a href="/category/" th:each="categ,iterStat : ${categories}" th:attr="href='/category/' + ${categ.id}" th:text="${categ.name}"></a></li>
                                 </ul>
                         </li>
 
-                        <li class="dropdown">
+                        <li class="dropdown link">
                             <a class="dropdown-toggle" id="dropdownSuppliers" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" th:text="${supplier? supplier.name : 'Select a supplier'}"></a>
                             <ul class="dropdown-menu" aria-labelledby="dropdownSuppliers">
                                 <li><a href="/supplier/" th:each="suppl,iterStat : ${suppliers}" th:attr="href='/supplier/' + ${suppl.id}" th:text="${suppl.name}"></a></li>

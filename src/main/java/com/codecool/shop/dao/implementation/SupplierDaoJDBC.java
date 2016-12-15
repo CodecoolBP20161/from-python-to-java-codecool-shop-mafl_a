@@ -1,5 +1,6 @@
 package com.codecool.shop.dao.implementation;
 
+import com.codecool.shop.controller.DBProperties;
 import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.model.Supplier;
 
@@ -11,10 +12,9 @@ import java.util.List;
  * Created by franka on 2016.11.29..
  */
 public class SupplierDaoJDBC implements SupplierDao {
-
-    private static final String DATABASE = "jdbc:postgresql://localhost:5432/codecoolshop";
-    private static final String DB_USER = "postgres";
-    private static final String DB_PASSWORD = "postgres";
+    private static final String DATABASE = DBProperties.getDatabase();
+    private static final String DB_USER = DBProperties.getDBUser();
+    private static final String DB_PASSWORD = DBProperties.getDBPassword();
 
     private static SupplierDaoJDBC instance = null;
 
