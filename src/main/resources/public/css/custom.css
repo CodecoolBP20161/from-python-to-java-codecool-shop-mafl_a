@@ -66,6 +66,11 @@
 .dropdown {
     padding-left: 10px;
 }
+
+input[type="number"] {
+    width:70px;
+}
+
 .link {
     cursor: pointer;
 }

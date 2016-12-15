@@ -40,12 +40,12 @@ public class Order {
     private List<LineItem> lineItems = new ArrayList<>();
 
     // returns the total price in cart (lineitem price*quantity)
-    public float getCartTotalPrice() {
+    public double getCartTotalPrice() {
         float total = 0f;
         for (int i = 0; i < lineItems.size(); i++) {
             total += lineItems.get(i).getTotalPrice();
         }
-        return total;
+        return (double) Math.round(total * 100.0) / 100.0;
     }
 
     // returns number of items in cart
