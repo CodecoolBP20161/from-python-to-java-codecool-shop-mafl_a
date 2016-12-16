@@ -9,7 +9,7 @@ import java.util.List;
 public class Order {
 
     @Getter
-    private List<LineItem> lineItems = new ArrayList<>();
+    public List<LineItem> lineItems = new ArrayList<>();
 
 
     // returns the total price in cart (lineitem price*quantity)
@@ -32,8 +32,29 @@ public class Order {
 
     // adds a lineitem with a new id
     public void addLineItems(LineItem lineItem) {
-        lineItem.setId(lineItems.size() + 1);
+        lineItem.setId(lineItem.getProduct().getId());
         lineItems.add(lineItem);
+    }
+
+    /**
+     * This method is currently not used because
+     * we handle orders in sessions, but later on
+     * we will need it to get unique id per order
+     * per lineitem.
+     */
+    public int getHighestId(){
+        int maxId;
+        if (lineItems.size() > 0) {
+            maxId = lineItems.get(0).getId();
+        } else {
+            maxId = 1;
+        }
+        for (LineItem lineItem : lineItems) {
+            if (lineItem.getId() > maxId){
+                maxId = lineItem.getId();
+            }
+        }
+        return maxId;
     }
 
     // checks if a lineitem exists, if not, it creates a new
@@ -47,10 +68,13 @@ public class Order {
                     hasLineItem = true;
                 }
             }
-            if (!hasLineItem) lineItems.add(new LineItem(product));
+            if (!hasLineItem) addLineItems(new LineItem(product));
         } else {
             addLineItems(new LineItem(product));
         }
     }
 
+    public void deleteLineItem(LineItem lineItem){
+        lineItems.remove(lineItem);
+    }
 }
