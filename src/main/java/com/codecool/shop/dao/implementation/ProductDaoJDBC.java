@@ -1,6 +1,7 @@
 package com.codecool.shop.dao.implementation;
 
 
+import com.codecool.shop.controller.DBProperties;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
@@ -14,10 +15,9 @@ import java.util.Currency;
 import java.util.List;
 
 public class ProductDaoJDBC implements ProductDao {
-
-    private static final String DATABASE = "jdbc:postgresql://localhost:5432/codecoolshop";
-    private static final String DB_USER = "postgres";
-    private static final String DB_PASSWORD = "postgres";
+    private static final String DATABASE = DBProperties.getDatabase();
+    private static final String DB_USER = DBProperties.getDBUser();
+    private static final String DB_PASSWORD = DBProperties.getDBPassword();
 
     private static ProductDaoJDBC instance = null;
 
@@ -66,19 +66,19 @@ public class ProductDaoJDBC implements ProductDao {
         try (Connection connection = getConnection();
              Statement statement =connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
-            Currency currency = Currency.getInstance(resultSet.getString("currency"));
-
-            ProductCategoryDao productData = ProductCategoryDaoJDBC.getInstance();
-            ProductCategory category = productData.find(resultSet.getInt("product_category"));
-
-            SupplierDao supplierData = SupplierDaoJDBC.getInstance();
-            Supplier supplier = supplierData.find(resultSet.getInt("supplier"));
+//            Currency currency = Currency.getInstance();
 
             if (resultSet.next()){
+                ProductCategoryDao productData = ProductCategoryDaoJDBC.getInstance();
+                ProductCategory category = productData.find(resultSet.getInt("product_category"));
+
+                SupplierDao supplierData = SupplierDaoJDBC.getInstance();
+                Supplier supplier = supplierData.find(resultSet.getInt("supplier"));
+
                 return new Product(resultSet.getInt("id"),
                         resultSet.getString("name"),
                         resultSet.getFloat("default_price"),
-                        currency,
+                        resultSet.getString("currency"),
                         resultSet.getString("description"),
                         category,
                         supplier);
@@ -105,7 +105,7 @@ public class ProductDaoJDBC implements ProductDao {
              Statement statement =connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
             while (resultSet.next()) {
-                Currency currency = Currency.getInstance(resultSet.getString("currency"));
+//                Currency currency = Currency.getInstance(resultSet.getString("currency"));
 
                 ProductCategoryDao productData = ProductCategoryDaoJDBC.getInstance();
                 ProductCategory category = productData.find(resultSet.getInt("product_category"));
@@ -116,7 +116,7 @@ public class ProductDaoJDBC implements ProductDao {
                 products.add(new Product(resultSet.getInt("id"),
                         resultSet.getString("name"),
                         resultSet.getFloat("default_price"),
-                        currency,
+                        resultSet.getString("currency"),
                         resultSet.getString("description"),
                         category,
                         supplier));
@@ -136,7 +136,7 @@ public class ProductDaoJDBC implements ProductDao {
              Statement statement =connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
             while (resultSet.next()) {
-                Currency currency = Currency.getInstance(resultSet.getString("currency"));
+//                Currency currency = Currency.getInstance(resultSet.getString("currency"));
 
                 ProductCategoryDao productData = ProductCategoryDaoJDBC.getInstance();
                 ProductCategory category = productData.find(resultSet.getInt("product_category"));
@@ -144,7 +144,7 @@ public class ProductDaoJDBC implements ProductDao {
                 products.add(new Product(resultSet.getInt("id"),
                         resultSet.getString("name"),
                         resultSet.getFloat("default_price"),
-                        currency,
+                        resultSet.getString("currency"),
                         resultSet.getString("description"),
                         category,
                         supplier));
@@ -164,7 +164,7 @@ public class ProductDaoJDBC implements ProductDao {
              Statement statement =connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
             while (resultSet.next()) {
-                Currency currency = Currency.getInstance(resultSet.getString("currency"));
+//                Currency currency = Currency.getInstance(resultSet.getString("currency"));
 
                 SupplierDao supplierData = SupplierDaoJDBC.getInstance();
                 Supplier supplier = supplierData.find(resultSet.getInt("supplier"));
@@ -172,7 +172,7 @@ public class ProductDaoJDBC implements ProductDao {
                 products.add(new Product(resultSet.getInt("id"),
                         resultSet.getString("name"),
                         resultSet.getFloat("default_price"),
-                        currency,
+                        resultSet.getString("currency"),
                         resultSet.getString("description"),
                         productCategory,
                         supplier));

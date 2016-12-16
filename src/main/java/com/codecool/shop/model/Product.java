@@ -1,12 +1,22 @@
 package com.codecool.shop.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Currency;
 
 public class Product extends BaseModel {
 
+    @Getter @Setter
     private float defaultPrice;
+
+    @Getter @Setter
     private Currency defaultCurrency;
+
+    @Getter @Setter
     private ProductCategory productCategory;
+
+    @Getter @Setter
     private Supplier supplier;
 
 
@@ -18,20 +28,13 @@ public class Product extends BaseModel {
         this.supplier = supplier;
     }
 
-    public Product(int id, String name, float defaultPrice, Currency defaultCurrency, String description, ProductCategory productCategory, Supplier supplier) {
+    public Product(int id, String name, float defaultPrice, String defaultCurrency, String description, ProductCategory productCategory, Supplier supplier) {
         super(id, name, description);
         this.defaultPrice = defaultPrice;
-        this.defaultCurrency = defaultCurrency;
+        this.defaultCurrency = Currency.getInstance(defaultCurrency);
         this.productCategory = productCategory;
         this.supplier = supplier;
-//        this(defaultPrice, defaultCurrency, productCategory, supplier);
     }
-
-
-//    public void setPrice(float price, String currency) {
-//        this.defaultPrice = price;
-//        this.defaultCurrency = Currency.getInstance(currency);
-//    }
 
     public ProductCategory getProductCategory() {
         return productCategory;
@@ -39,7 +42,6 @@ public class Product extends BaseModel {
 
     public void setProductCategory(ProductCategory productCategory) {
         this.productCategory = productCategory;
-//        this.productCategory.addProduct(this);
     }
 
     public Supplier getSupplier() {
@@ -48,7 +50,6 @@ public class Product extends BaseModel {
 
     public void setSupplier(Supplier supplier) {
         this.supplier = supplier;
-//        this.supplier.addProduct(this);
     }
 
     public float getDefaultPrice() {
@@ -66,6 +67,7 @@ public class Product extends BaseModel {
     public void setDefaultCurrency(Currency defaultCurrency) {
         this.defaultCurrency = defaultCurrency;
     }
+
 
     public String getPrice() {
         return String.valueOf(this.defaultPrice) + " " + this.defaultCurrency.toString();
@@ -86,4 +88,6 @@ public class Product extends BaseModel {
                 this.productCategory.getName(),
                 this.supplier.getName());
     }
+
+
 }

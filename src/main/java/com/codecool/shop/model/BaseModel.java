@@ -1,12 +1,20 @@
 package com.codecool.shop.model;
 
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.lang.reflect.Field;
 
 public class BaseModel {
 
+    @Getter @Setter
     protected int id;
+
+    @Getter @Setter
     protected String name;
+
+    @Getter @Setter
     protected String description;
 
     public BaseModel(String name) {
@@ -21,30 +29,6 @@ public class BaseModel {
     public BaseModel(int id, String name, String description) {
         this(name, description);
         this.id = id;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     @Override
@@ -65,4 +49,18 @@ public class BaseModel {
         return sb.toString();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        BaseModel baseModel = (BaseModel) o;
+
+        return id == baseModel.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
+    }
 }
