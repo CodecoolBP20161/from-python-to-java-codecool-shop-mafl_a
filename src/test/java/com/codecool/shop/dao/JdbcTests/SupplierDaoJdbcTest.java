@@ -1,6 +1,7 @@
-package com.codecool.shop.dao;
+package com.codecool.shop.dao.JdbcTests;
 
-import com.codecool.shop.dao.implementation.Mem.SupplierDaoMem;
+import com.codecool.shop.dao.SupplierDao;
+import com.codecool.shop.dao.implementation.SupplierDaoJDBC;
 import com.codecool.shop.model.Supplier;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -8,10 +9,12 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
-public class SupplierDaoTest {
-
+/**
+ * Created by kekesaron on 2016.12.13..
+ */
+public class SupplierDaoJdbcTest {
     static SupplierDao supplierDao;
     static Supplier amazon;
     static Supplier lenovo;
@@ -19,7 +22,7 @@ public class SupplierDaoTest {
 
     @BeforeClass
     public static void setUp() {
-        supplierDao = SupplierDaoMem.getInstance();
+        supplierDao = SupplierDaoJDBC.getInstance();
         amazon = new Supplier("Amazon", "Digital content and services");
         lenovo = new Supplier("Lenovo", "Computers");
         supplierList.add(amazon);

@@ -28,14 +28,46 @@ public class Product extends BaseModel {
         this.supplier = supplier;
     }
 
-    public Product(int id, String name, float defaultPrice, Currency defaultCurrency, String description, ProductCategory productCategory, Supplier supplier) {
+    public Product(int id, String name, float defaultPrice, String defaultCurrency, String description, ProductCategory productCategory, Supplier supplier) {
         super(id, name, description);
         this.defaultPrice = defaultPrice;
-        this.defaultCurrency = defaultCurrency;
+        this.defaultCurrency = Currency.getInstance(defaultCurrency);
         this.productCategory = productCategory;
         this.supplier = supplier;
-//        this(defaultPrice, defaultCurrency, productCategory, supplier);
     }
+
+    public ProductCategory getProductCategory() {
+        return productCategory;
+    }
+
+    public void setProductCategory(ProductCategory productCategory) {
+        this.productCategory = productCategory;
+    }
+
+    public Supplier getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(Supplier supplier) {
+        this.supplier = supplier;
+    }
+
+    public float getDefaultPrice() {
+        return defaultPrice;
+    }
+
+    public void setDefaultPrice(float defaultPrice) {
+        this.defaultPrice = defaultPrice;
+    }
+
+    public Currency getDefaultCurrency() {
+        return defaultCurrency;
+    }
+
+    public void setDefaultCurrency(Currency defaultCurrency) {
+        this.defaultCurrency = defaultCurrency;
+    }
+
 
     public String getPrice() {
         return String.valueOf(this.defaultPrice) + " " + this.defaultCurrency.toString();
@@ -56,4 +88,6 @@ public class Product extends BaseModel {
                 this.productCategory.getName(),
                 this.supplier.getName());
     }
+
+
 }
