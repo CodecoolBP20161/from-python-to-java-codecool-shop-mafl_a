@@ -1,6 +1,7 @@
 import static spark.Spark.*;
 import static spark.debug.DebugScreen.enableDebugScreen;
 
+import com.codecool.shop.controller.OrderController;
 import com.codecool.shop.controller.ProductController;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
@@ -30,6 +31,8 @@ public class Main {
 
         // Product adding route
         get("/add-product/:prodId", ProductController::addItem);
+
+        get("/update-cart", OrderController::updateCart);
 
         // Always add generic routes to the end
         get("/", ProductController::renderAll, new ThymeleafTemplateEngine());

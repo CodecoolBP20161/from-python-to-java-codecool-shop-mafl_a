@@ -70,6 +70,7 @@
     </div>
 
     <!-- Modal -->
+    <form method="get" th:action="'/update-cart'">
     <div class="modal fade bs-example-modal-lg" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="cartModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -94,7 +95,7 @@
                                 <th class="form-group row" scope="row" th:text="${lineItem.product.name}">Product name</th>
                                 <td>
                                     <!--<label for="quantity-input" class="col-xs-2 col-form-label">Number</label>-->
-                                    <input class="form-control" type="number" th:value="${lineItem.quantity}" id="quantity-input"></input>
+                                    <input class="form-control" type="number" min="0" th:value="${lineItem.quantity}" id="quantity-input" th:attr="name=${lineItem.id}"></input>
                                 </td>
                                 <td th:text="${lineItem.product.getPrice()}">Price</td>
                                 <td th:text="${lineItem.getTotalPrice()} + ' ' + ${lineItem.product.defaultCurrency}">Subtotal</td>
@@ -110,12 +111,13 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
                 </div>
                 </form>
             </div>
         </div>
     </div>
+    </form>
 
     <div class="container-fluid">
     <div id="products" class="row list-group products">
