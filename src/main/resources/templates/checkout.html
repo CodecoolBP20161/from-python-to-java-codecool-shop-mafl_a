@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="author" content="Codecool" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Codecool Shop - Checkout</title>
+
+    <!-- Latest compiled and minified Jquery -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous" />
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" type="text/css" href="/css/custom.css" />
+</head>
+<body>
+<div class="outer">
+    <div class="middle">
+        <div class="inner">
+            <div>
+                <h2>Please fill out the form with your billing data</h2>
+            </div>
+            <form action="/checkout" class="fieldSet" method="post">
+                <fieldset>
+                <div class="form-group">
+                    <label class="field" for="firstName">First name</label><span class="req">*</span>
+                    <input type="text" required="required" class="form-control" id="firstName" placeholder="First name" name="firstName" ></input>
+                    <label class="field" for="firstName">Last name</label><span class="req">*</span>
+                    <input type="text" required="required" class="form-control" id="lastName" placeholder="Last name" name="lastName"></input>
+                </div>
+                <div class="form-group">
+                    <label class="field" for="emailInput">Email address</label><span class="req">*</span>
+                    <input type="email" required="required" class="form-control" id="emailInput" aria-describedby="emailHelp" placeholder="Enter email" name="email"></input>
+                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
+                <div class="form-group">
+                    <label class="field" for="phoneNumber">Phone number</label><span class="req">*</span>
+                    <input type="tel" required="required" class="form-control" id="phoneNumber" aria-describedby="phoneHelp"
+                           pattern='[\+]\d{2}[\ ]\d{2}[\ ]\d{3}[\-]\d{4}' title='Phone Number (Format: +99 99 999-9999)' name="phone"></input>
+                    <small id="phoneHelp" class="form-text text-muted">Phone Number (Format: +99 99 999-9999)</small>
+                </div>
+                    <div class="form-inline">
+                        <div class="form-group">
+                            <label class="field" for="country">Address</label>
+                            <p><label for="country">Country</label><span class="req">*</span><input type="text" required="required" class="form-control" id="country" placeholder="Country" name="country"></input></p>
+                            <p><label for="city">City</label><span class="req">*</span><input type="text" required="required" class="form-control" id="city" placeholder="City" name="city"></input></p>
+                            <p><label for="zipcode">Zipcode</label><span class="req">*</span><input type="text" required="required" class="form-control" pattern="[0-9]{4}" title="Four digit zip code" id="zipcode" placeholder="Zip code" name="zipcode"></input></p>
+                            <p><label for="address">Address</label><span class="req">*</span><input type="text" required="required" class="form-control" id="address" placeholder="Address" name="address"></input></p>
+                        </div>
+                    </div>
+                <p class="required">* Required</p>
+                <button type="submit" class="btn btn-primary">Submit my data</button>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -19,11 +19,6 @@ import java.util.Map;
 public class ProductController {
 
     public static ModelAndView renderProducts(Request req, Response res) {
-
-        if (req.session().attribute("order") == null) {
-            req.session().attribute("order", new Order());
-        }
-
         Order sessionOrder = req.session().attribute("order");
         ProductDao productDataStore = ProductDaoJDBC.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoJDBC.getInstance();
@@ -72,12 +67,9 @@ public class ProductController {
     }
 
     public static ModelAndView addItem(Request req, Response res) {
-        Order order;
-        if (req.session().attribute("order") == null) {
-            req.session().attribute("order", new Order());
-        }
-        order = req.session().attribute("order");
         int quantity = Integer.parseInt(req.queryParams("quantity"));
+        Order order = req.session().attribute("order");
+
         ProductDao productDataStore = ProductDaoJDBC.getInstance();
         for (Product item : productDataStore.getAll()) {
             if (item.getId() == Integer.parseInt(req.params(":prodId"))) {
@@ -89,5 +81,28 @@ public class ProductController {
         }
         res.redirect("/");
         return null;
+    }
+
+    public static ModelAndView checkout(Request request, Response response) {
+        Map params = new HashMap<>();
+        Order sessionOrder = request.session().attribute("order");
+        params.put("order", sessionOrder);
+        return new ModelAndView(params, "checkout");
+    }
+
+    public  static ModelAndView saveUserData(Request request, Response response) {
+        Map params = new HashMap<>();
+        Order sessionOrder = request.session().attribute("order");
+        params.put("order", sessionOrder);
+        sessionOrder.setFirstName(request.queryParams("firstName"));
+        sessionOrder.setLastName(request.queryParams("lastName"));
+        sessionOrder.setCity(request.queryParams("city"));
+        sessionOrder.setAddress(request.queryParams("address"));
+        sessionOrder.setCountry(request.queryParams("country"));
+        sessionOrder.setEmail(request.queryParams("email"));
+        sessionOrder.setPhoneNumber(request.queryParams("phone"));
+        sessionOrder.setZipCode(request.queryParams("zipcode"));
+//        String name = request.queryParams("firstName");
+        return  new ModelAndView(params, "checkout");
     }
 }
