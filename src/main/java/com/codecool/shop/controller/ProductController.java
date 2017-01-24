@@ -121,7 +121,7 @@ public class ProductController {
         List<String> embedVideoLinks = serviceController.getProductVideos(json);
 
         params.put("product", singleProduct);
-        params.put("embed codes", embedVideoLinks);
+        params.put("embed_codes", embedVideoLinks);
 
         return new ModelAndView(params, "checkout");
     }
