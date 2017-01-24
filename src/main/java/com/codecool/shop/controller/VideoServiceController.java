@@ -1,8 +1,10 @@
 package com.codecool.shop.controller;
 
 import org.apache.http.client.fluent.Request;
+import org.apache.http.client.utils.URIBuilder;
 import org.json.*;
 
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,8 +34,10 @@ public class VideoServiceController {
     }
 
 
-    public String getJson(String product) {
-        return null;
+    public String getJson(String product) throws URISyntaxException, IOException {
+        URIBuilder builder = new URIBuilder("https:0.0.0.0:60000/apivideos");
+        builder.addParameter("search", product);
+        return execute(builder.build());
     }
 
     public List getProductVideos(String apiJsonAsString) {
