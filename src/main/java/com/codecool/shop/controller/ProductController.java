@@ -13,6 +13,8 @@ import com.codecool.shop.model.Product;
 import spark.Request;
 import spark.Response;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -106,7 +108,7 @@ public class ProductController {
         return  new ModelAndView(params, "checkout");
     }
 
-    public static ModelAndView renderProductPage(Request request, Response response) {
+    public static ModelAndView renderProductPage(Request request, Response response) throws IOException, URISyntaxException {
         Map params = new HashMap<>();
 
         // find the product by id in the product data store
@@ -121,7 +123,7 @@ public class ProductController {
         List<String> embedVideoLinks = serviceController.getProductVideos(json);
 
         params.put("product", singleProduct);
-        params.put("embed codes", embedVideoLinks);
+        params.put("embed_codes", embedVideoLinks);
 
         return new ModelAndView(params, "checkout");
     }
