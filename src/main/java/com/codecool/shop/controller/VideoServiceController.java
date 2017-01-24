@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.net.URI;
 
 public class VideoServiceController {
-    private static final String SERVICE_URL = "http://localhost:60000";
+    private static final String SERVICE_URL = "http://localhost:60000/apivideos";
 
     private static VideoServiceController INSTANCE;
 
@@ -35,7 +35,7 @@ public class VideoServiceController {
 
 
     public String getJson(String product) throws URISyntaxException, IOException {
-        URIBuilder builder = new URIBuilder("http://localhost:60000/apivideos");
+        URIBuilder builder = new URIBuilder(SERVICE_URL);
         builder.addParameter("search", product);
         System.out.println(builder);
         return execute(builder.build());
