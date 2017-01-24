@@ -1,13 +1,17 @@
 package com.codecool.shop.controller;
 
+import org.apache.http.client.fluent.Request;
 import org.json.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class VideoServiceController {
+import java.io.IOException;
+import java.net.URI;
 
+public class VideoServiceController {
     private static final String SERVICE_URL = "http://localhost:60020";
+
     private static VideoServiceController INSTANCE;
 
     public static VideoServiceController getInstance() {
@@ -17,7 +21,15 @@ public class VideoServiceController {
         return INSTANCE;
     }
 
-    private VideoServiceController() {}
+    private VideoServiceController() {
+    }
+
+    private String execute(URI uri) throws IOException {
+        return Request.Get(uri)
+                .execute()
+                .returnContent()
+                .asString();
+    }
 
 
     public String getJson(String product) {
@@ -35,5 +47,4 @@ public class VideoServiceController {
         embedCodes.add(reviewJson.getString("embed code"));
         return embedCodes;
     }
-
 }
