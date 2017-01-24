@@ -102,7 +102,20 @@ public class ProductController {
         sessionOrder.setEmail(request.queryParams("email"));
         sessionOrder.setPhoneNumber(request.queryParams("phone"));
         sessionOrder.setZipCode(request.queryParams("zipcode"));
-//        String name = request.queryParams("firstName");
         return  new ModelAndView(params, "checkout");
+    }
+
+    public static ModelAndView renderProductPage(Request request, Response response) {
+        Map params = new HashMap<>();
+
+        // find the product by id in the product data store
+        int productId = Integer.parseInt(request.params(":id"));
+        ProductDao productDataStore = ProductDaoJDBC.getInstance();
+        String productName = productDataStore.find(productId).getName();
+
+        VideoServiceController serviceController = VideoServiceController.getInstance();
+        serviceController.getJson(productName);
+
+        return new ModelAndView(params, "checkout");
     }
 }
