@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.net.URI;
 
 public class VideoServiceController {
-    private static final String SERVICE_URL = "http://localhost:60020";
+    private static final String SERVICE_URL = "http://localhost:60000";
 
     private static VideoServiceController INSTANCE;
 
@@ -35,20 +35,27 @@ public class VideoServiceController {
 
 
     public String getJson(String product) throws URISyntaxException, IOException {
-        URIBuilder builder = new URIBuilder("https:0.0.0.0:60000/apivideos");
+        URIBuilder builder = new URIBuilder("http://localhost:60000/apivideos");
         builder.addParameter("search", product);
+        System.out.println(builder);
         return execute(builder.build());
     }
 
-    public List getProductVideos(String apiJsonAsString) {
-        List<String> embedCodes = new ArrayList<>();
+    public List<String> getProductVideos(String apiJsonAsString) throws JSONException {
+        JSONObject jsonObject = new JSONObject(apiJsonAsString);
+        String error = jsonObject.getString("error");
+        if(error != null){
+            JSONObject errorJson = new JSONObject(error);
+            throw new JSONException(errorJson.getString("error message"));
+        } else {
+            JSONArray jsonArray = new JSONArray(apiJsonAsString);
+            List<String> embedCodes = new ArrayList<>();
+            JSONObject unboxingJson = new JSONObject(jsonArray.get(0));
+            JSONObject reviewJson = new JSONObject(jsonArray.get(2));
 
-        JSONArray jsonArray = new JSONArray(apiJsonAsString);
-        JSONObject unboxingJson = new JSONObject(jsonArray.get(0));
-        JSONObject reviewJson = new JSONObject(jsonArray.get(2));
-
-        embedCodes.add(unboxingJson.getString("embed code"));
-        embedCodes.add(reviewJson.getString("embed code"));
+            embedCodes.add(unboxingJson.getString("embed code"));
+            embedCodes.add(reviewJson.getString("embed code"));
         return embedCodes;
+        }
     }
 }
