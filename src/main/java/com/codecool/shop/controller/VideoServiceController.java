@@ -9,9 +9,6 @@ import java.util.List;
 import java.io.IOException;
 import java.net.URI;
 
-/**
- * Created by franka on 2017.01.24..
- */
 public class VideoServiceController {
     private static final String SERVICE_URL = "http://localhost:60020";
 
