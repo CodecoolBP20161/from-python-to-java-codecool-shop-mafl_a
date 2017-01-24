@@ -105,4 +105,9 @@ public class ProductController {
 //        String name = request.queryParams("firstName");
         return  new ModelAndView(params, "checkout");
     }
+
+    public static ModelAndView renderProductPage(Request request, Response response) {
+        Map params = new HashMap<>();
+        return new ModelAndView(params, "checkout");
+    }
 }

@@ -94,7 +94,6 @@
                             <tr th:each="lineItem,iterStat : ${lineItems}">
                                 <th class="form-group row" scope="row" th:text="${lineItem.product.name}">Product name</th>
                                 <td>
-                                    <!--<label for="quantity-input" class="col-xs-2 col-form-label">Number</label>-->
                                     <input class="form-control" type="number" min="0" th:value="${lineItem.quantity}" id="quantity-input" th:attr="name=${lineItem.id}"></input>
                                 </td>
                                 <td th:text="${lineItem.product.getPrice()}">Price</td>
@@ -124,16 +123,18 @@
 
         <div class="item col-xs-4 col-lg-4" th:each="prod,iterStat : ${products}">
             <div class="thumbnail">
-                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" th:attr="src='/img/product_' + ${prod.id} + '.jpg'" alt="" />
+                <a th:href="'product/' + ${prod.id}">
+                    <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" th:attr="src='/img/product_' + ${prod.id} + '.jpg'" alt="" />
+                </a>
                 <div class="caption">
-                    <h4 class="group inner list-group-item-heading" th:text="${prod.name}">Product name</h4>
+                    <h4 class="group inner list-group-item-heading">
+                        <a th:text="${prod.name}" th:href="'product/' + ${prod.id}">Product name</a>
+                    </h4>
                     <p class="group inner list-group-item-text" th:text="${prod.description}">Product description... </p>
                     <div class="row">
                         <div class="col-xs-12 col-md-6">
                             <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
                         </div>
-                        <!--<div>-->
-                        <!--</div>-->
                         <div class="col-xs-12 col-md-6">
                             <form method="get" th:action="'/add-product/' + ${prod.id}">
                                 <input name="quantity" type="number" value="1" min="1" id="input"></input>
