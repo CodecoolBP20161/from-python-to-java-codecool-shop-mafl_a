@@ -37,6 +37,9 @@ public class Main {
         // Always add generic routes to the end
         get("/", ProductController::renderAll, new ThymeleafTemplateEngine());
 
+        //INSERT METHOD HERE
+        get("/product", ProductController::renderProductPage, new ThymeleafTemplateEngine());
+
         // Add this line to your project to enable the debug screen
         enableDebugScreen();
     }
