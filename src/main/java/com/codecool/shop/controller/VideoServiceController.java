@@ -7,6 +7,8 @@ import java.util.List;
 
 public class VideoServiceController {
 
+    private static final String SERVICE_URL = "http://localhost:60020";
+
     public List getProductVideos(String apiJsonAsString) {
         List<String> embedCodes = new ArrayList<>();
 
