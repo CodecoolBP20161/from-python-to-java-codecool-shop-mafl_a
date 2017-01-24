@@ -37,21 +37,22 @@ public class VideoServiceController {
     public String getJson(String product) throws URISyntaxException, IOException {
         URIBuilder builder = new URIBuilder(SERVICE_URL);
         builder.addParameter("search", product);
-        System.out.println(builder);
         return execute(builder.build());
     }
 
     public List<String> getProductVideos(String apiJsonAsString) throws JSONException {
-        JSONObject jsonObject = new JSONObject(apiJsonAsString);
-        String error = jsonObject.getString("error");
-        if(error != null){
+
+        if(apiJsonAsString.substring(0,1).equals("{")){
+            JSONObject jsonObject = new JSONObject(apiJsonAsString);
+            String error = jsonObject.getString("error");
             JSONObject errorJson = new JSONObject(error);
             throw new JSONException(errorJson.getString("error message"));
         } else {
             JSONArray jsonArray = new JSONArray(apiJsonAsString);
             List<String> embedCodes = new ArrayList<>();
-            JSONObject unboxingJson = new JSONObject(jsonArray.get(0));
-            JSONObject reviewJson = new JSONObject(jsonArray.get(2));
+
+            JSONObject unboxingJson = new JSONObject(jsonArray.get(0).toString());
+            JSONObject reviewJson = new JSONObject(jsonArray.get(1).toString());
 
             embedCodes.add(unboxingJson.getString("embed code"));
             embedCodes.add(reviewJson.getString("embed code"));
