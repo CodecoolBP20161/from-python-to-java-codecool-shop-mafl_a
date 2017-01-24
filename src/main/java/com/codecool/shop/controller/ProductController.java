@@ -111,10 +111,15 @@ public class ProductController {
         // find the product by id in the product data store
         int productId = Integer.parseInt(request.params(":id"));
         ProductDao productDataStore = ProductDaoJDBC.getInstance();
-        String productName = productDataStore.find(productId).getName();
+
+        Product singleProduct = productDataStore.find(productId);
+        String productName = singleProduct.getName();
 
         VideoServiceController serviceController = VideoServiceController.getInstance();
         serviceController.getJson(productName);
+
+        params.put("product", singleProduct);
+        params.put("embed codes", "here comes embed codes variable");
 
         return new ModelAndView(params, "checkout");
     }
