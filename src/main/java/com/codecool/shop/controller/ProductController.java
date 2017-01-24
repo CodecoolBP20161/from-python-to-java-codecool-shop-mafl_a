@@ -14,6 +14,7 @@ import spark.Request;
 import spark.Response;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ProductController {
@@ -116,10 +117,11 @@ public class ProductController {
         String productName = singleProduct.getName();
 
         VideoServiceController serviceController = VideoServiceController.getInstance();
-        serviceController.getJson(productName);
+        String json = serviceController.getJson(productName);
+        List<String> embedVideoLinks = serviceController.getProductVideos(json);
 
         params.put("product", singleProduct);
-        params.put("embed codes", "here comes embed codes variable");
+        params.put("embed codes", embedVideoLinks);
 
         return new ModelAndView(params, "checkout");
     }
