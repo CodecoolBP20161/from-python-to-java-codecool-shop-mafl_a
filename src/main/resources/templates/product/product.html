@@ -129,7 +129,7 @@
                             <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" th:attr="src='/img/product_' + ${product.id} + '.jpg'" alt="" />
                         </div>
                         <div class="col-xs-12 col-md-6">
-                            <div class="inner-fullwidth">
+                            <div class="inner">
                                 <h4 class=" list-group-item-heading" th:text="${product.name}">Product name</h4>
                                 <p class="list-group-item-text" th:text="${product.description}">Product description... </p>
                                 <div class="row">
@@ -145,11 +145,10 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
-                    <div class="row" th:each="embed_code,iterStat : ${embed_codes}">
-                        <div class="col-xs-12 col-md-6">
-                            <div th:utext="${embed_code}">&nbsp;</div>
+                    <div class="row">
+                        <div th:each="embed_code,iterStat : ${embed_codes}">
+                            <div class="col-xs-12 col-md-6" th:utext="${embed_code}"></div>
                         </div>
                     </div>
                 </div>

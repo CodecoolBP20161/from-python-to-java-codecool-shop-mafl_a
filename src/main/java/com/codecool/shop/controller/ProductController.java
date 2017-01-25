@@ -122,9 +122,13 @@ public class ProductController {
         String json = serviceController.getJson(productName);
         List<String> embedVideoLinks = serviceController.getProductVideos(json);
 
+        Order sessionOrder = request.session().attribute("order");
+        params.put("order", sessionOrder);
+
         params.put("product", singleProduct);
         params.put("embed_codes", embedVideoLinks);
+        params.put("totalItemQuantity", sessionOrder.getTotalQuantity());
 
-        return new ModelAndView(params, "checkout");
+        return new ModelAndView(params, "product/product");
     }
 }
