@@ -13,7 +13,10 @@ import com.codecool.shop.model.Product;
 import spark.Request;
 import spark.Response;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ProductController {
@@ -102,7 +105,30 @@ public class ProductController {
         sessionOrder.setEmail(request.queryParams("email"));
         sessionOrder.setPhoneNumber(request.queryParams("phone"));
         sessionOrder.setZipCode(request.queryParams("zipcode"));
-//        String name = request.queryParams("firstName");
         return  new ModelAndView(params, "checkout");
+    }
+
+    public static ModelAndView renderProductPage(Request request, Response response) throws IOException, URISyntaxException {
+        Map params = new HashMap<>();
+
+        // find the product by id in the product data store
+        int productId = Integer.parseInt(request.params(":id"));
+        ProductDao productDataStore = ProductDaoJDBC.getInstance();
+
+        Product singleProduct = productDataStore.find(productId);
+        String productName = singleProduct.getName();
+
+        VideoServiceController serviceController = VideoServiceController.getInstance();
+        String json = serviceController.getJson(productName);
+        List<String> embedVideoLinks = serviceController.getProductVideos(json);
+
+        Order sessionOrder = request.session().attribute("order");
+        params.put("order", sessionOrder);
+
+        params.put("product", singleProduct);
+        params.put("embed_codes", embedVideoLinks);
+        params.put("totalItemQuantity", sessionOrder.getTotalQuantity());
+
+        return new ModelAndView(params, "product/product");
     }
 }
