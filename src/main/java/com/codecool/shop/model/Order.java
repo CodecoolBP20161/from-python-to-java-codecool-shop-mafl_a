@@ -13,6 +13,7 @@ public class Order {
     @Getter @Setter
     private int id;
 
+    @Getter
     private User user;
 
     @Getter @Setter
