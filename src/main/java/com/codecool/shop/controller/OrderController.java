@@ -30,4 +30,8 @@ public class OrderController {
         res.redirect("/");
         return null;
     }
+
+    public static ModelAndView completeOrder(Request req, Response res){
+        return new ModelAndView("PUT PARAMS HERE", "checkout");
+    }
 }
