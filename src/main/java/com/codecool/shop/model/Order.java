@@ -13,29 +13,7 @@ public class Order {
     @Getter @Setter
     private int id;
 
-    @Getter @Setter
-    private String firstName;
-
-    @Getter @Setter
-    private String lastName;
-
-    @Getter @Setter
-    private String email;
-
-    @Getter @Setter
-    private String phoneNumber;
-
-    @Getter @Setter
-    private String address;
-
-    @Getter @Setter
-    private String city;
-
-    @Getter @Setter
-    private String country;
-
-    @Getter @Setter
-    private String zipCode;
+    private User user;
 
     @Getter @Setter
     private List<LineItem> lineItems = new ArrayList<>();
