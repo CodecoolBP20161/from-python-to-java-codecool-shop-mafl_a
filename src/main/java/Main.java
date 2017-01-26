@@ -41,6 +41,7 @@ public class Main {
         // Individual product page route
         get("/product/:id", ProductController::renderProductPage, new ThymeleafTemplateEngine());
 
+        get("/order-complete", OrderController::completeOrder, new ThymeleafTemplateEngine());
         // Add this line to your project to enable the debug screen
         enableDebugScreen();
     }
