@@ -94,7 +94,7 @@ public class ProductController {
         return new ModelAndView(params, "checkout");
     }
 
-    public  static ModelAndView saveUserData(Request request, Response response) {
+    public  static ModelAndView saveUserData(Request request, Response response) throws IOException, URISyntaxException {
         Map params = new HashMap<>();
         Order order = request.session().attribute("order");
         order.setUser(new User(request.session().id().charAt(0)));
@@ -103,6 +103,7 @@ public class ProductController {
 
         params.put("order", order);
         user.setFirstName(request.queryParams("firstName"));
+        System.out.println(user.getFirstName());
         user.setLastName(request.queryParams("lastName"));
         user.setCity(request.queryParams("city"));
         user.setAddress(request.queryParams("address"));
@@ -135,5 +136,7 @@ public class ProductController {
         params.put("totalItemQuantity", order.getTotalQuantity());
 
         return new ModelAndView(params, "product/product");
+
+
     }
 }
