@@ -22,3 +22,20 @@ CREATE TABLE products(
   product_category INTEGER REFERENCES product_categories,
   supplier INTEGER REFERENCES suppliers
 );
+
+CREATE TABLE customer(
+  id SERIAL PRIMARY KEY,
+  first_name VARCHAR(40),
+  last_name VARCHAR(40),
+  email VARCHAR(40),
+  phone_number VARCHAR(15),
+  address VARCHAR(40),
+  city VARCHAR(20),
+  country VARCHAR(20),
+  zipcode VARCHAR(10)
+);
+
+CREATE TABLE "order"(
+  id SERIAL PRIMARY KEY,
+  customer INTEGER REFERENCES customer
+);
