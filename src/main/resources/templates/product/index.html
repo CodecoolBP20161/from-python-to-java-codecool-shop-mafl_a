@@ -94,7 +94,7 @@
                             <tr th:each="lineItem,iterStat : ${lineItems}">
                                 <th class="form-group row" scope="row" th:text="${lineItem.product.name}">Product name</th>
                                 <td>
-                                    <input class="form-control" type="number" min="0" th:value="${lineItem.quantity}" id="quantity-input" th:attr="name=${lineItem.id}"></input>
+                                    <input class="form-control" type="number" min="0" max="9999" th:value="${lineItem.quantity}" id="quantity-input" th:attr="name=${lineItem.id}"></input>
                                 </td>
                                 <td th:text="${lineItem.product.getPrice()}">Price</td>
                                 <td th:text="${lineItem.getTotalPrice()} + ' ' + ${lineItem.product.defaultCurrency}">Subtotal</td>
@@ -138,7 +138,7 @@
                         </div>
                         <div class="col-xs-12 col-md-6">
                             <form method="get" th:action="'/add-product/' + ${prod.id}">
-                                <input name="quantity" type="number" value="1" min="1" id="input"></input>
+                                <input name="quantity" type="number" value="1" min="1" max="9999" id="input"></input>
                                 <button type="submit" class="btn btn-success confirmation">Add to cart</button>
                             </form>
                         </div>
