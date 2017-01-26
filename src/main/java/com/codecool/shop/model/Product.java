@@ -36,6 +36,10 @@ public class Product extends BaseModel {
         this.supplier = supplier;
     }
 
+    public String getPrice() {
+        return String.valueOf(this.defaultPrice) + " " + this.defaultCurrency.toString();
+    }
+
     @Override
     public String toString() {
         return String.format("id: %1$d, " +

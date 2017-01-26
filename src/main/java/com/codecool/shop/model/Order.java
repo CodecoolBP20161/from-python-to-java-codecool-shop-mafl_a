@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class Order {
@@ -13,7 +12,7 @@ public class Order {
     @Getter @Setter
     private int id;
 
-    @Getter
+    @Getter @Setter
     private User user;
 
     @Getter @Setter

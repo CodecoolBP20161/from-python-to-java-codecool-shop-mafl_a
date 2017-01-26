@@ -22,7 +22,7 @@ import java.util.Map;
 
 public class ProductController {
 
-    public static ModelAndView renderProducts(Request request, Response res) {
+    public static ModelAndView renderProducts(Request request, Response response) {
         Order order = request.session().attribute("order");
         ProductDao productDataStore = ProductDaoJDBC.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoJDBC.getInstance();
@@ -49,7 +49,7 @@ public class ProductController {
         return new ModelAndView(params, "product/index");
     }
 
-    public static ModelAndView renderAll(Request request, Response res) {
+    public static ModelAndView renderAll(Request request, Response response) {
         ProductDao productDataStore = ProductDaoJDBC.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoJDBC.getInstance();
         SupplierDao productSupplierDataStore = SupplierDaoJDBC.getInstance();
@@ -70,7 +70,7 @@ public class ProductController {
         return new ModelAndView(params, "product/index");
     }
 
-    public static ModelAndView addItem(Request request, Response res) {
+    public static ModelAndView addItem(Request request, Response response) {
         int quantity = Integer.parseInt(request.queryParams("quantity"));
         Order order = request.session().attribute("order");
 
@@ -83,7 +83,7 @@ public class ProductController {
 
             }
         }
-        res.redirect("/");
+        response.redirect("/");
         return null;
     }
 
@@ -97,7 +97,10 @@ public class ProductController {
     public  static ModelAndView saveUserData(Request request, Response response) {
         Map params = new HashMap<>();
         Order order = request.session().attribute("order");
+        order.setUser(new User(request.session().id().charAt(0)));
+
         User user = order.getUser();
+
         params.put("order", order);
         user.setFirstName(request.queryParams("firstName"));
         user.setLastName(request.queryParams("lastName"));
