@@ -7,17 +7,16 @@ import com.codecool.shop.model.Order;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.User;
 import com.sun.org.apache.xpath.internal.operations.Or;
+import org.apache.commons.io.IOUtils;
 import org.apache.http.NoHttpResponseException;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.Date.*;
 
 public class OrderController {
 
@@ -67,7 +66,21 @@ public class OrderController {
             }
             throw new IOException("Service is not available");
         }
-        controller.getPdfLabel();
+
+        InputStream inputStream;
+        OutputStream os;
+
+        inputStream = controller.getPdfLabel();
+        String date = new Date().toString();
+        os = new FileOutputStream(date + ".pdf");
+        int read = 0;
+        byte[] bytes = new byte[1024];
+
+        while ((read = inputStream.read(bytes)) != -1) {
+            os.write(bytes, 0, read);
+        }
+        os.close();
+
         return new ModelAndView(params, "checkout_success");
     }
 }

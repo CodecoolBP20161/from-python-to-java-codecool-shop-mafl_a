@@ -9,6 +9,7 @@ import org.apache.http.entity.StringEntity;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Map;
@@ -46,15 +47,13 @@ public class PdfServiceController {
                 .asString();
     }
 
-    public String getPdfLabel() throws URISyntaxException, IOException {
+    public InputStream getPdfLabel() throws URISyntaxException, IOException {
         URIBuilder builder = new URIBuilder(SERVICE_URL);
         return executeGet(builder.build());
     }
 
-    private String executeGet(URI uri) throws IOException {
-        return Request.Get(uri)
-                .execute()
-                .returnContent()
-                .asString();
+    private InputStream executeGet(URI uri) throws IOException {
+        return Request.Get(uri).addHeader("Accept-charset", "UTF-8")
+                .execute().returnResponse().getEntity().getContent();
     }
 }

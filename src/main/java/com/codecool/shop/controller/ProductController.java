@@ -101,7 +101,6 @@ public class ProductController {
 
         User user = order.getUser();
 
-        params.put("order", order);
         user.setFirstName(request.queryParams("firstName"));
         System.out.println(user.getFirstName());
         user.setLastName(request.queryParams("lastName"));
@@ -111,6 +110,9 @@ public class ProductController {
         user.setEmail(request.queryParams("email"));
         user.setPhoneNumber(request.queryParams("phone"));
         user.setZipCode(request.queryParams("zipcode"));
+
+        params.put("order", order);
+        params.put("user", user);
         return  new ModelAndView(params, "checkout");
     }
 
