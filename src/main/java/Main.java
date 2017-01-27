@@ -35,13 +35,16 @@ public class Main {
 
         get("/update-cart", OrderController::updateCart);
 
-        // Always add generic routes to the end
-        get("/", ProductController::renderAll, new ThymeleafTemplateEngine());
-
         // Individual product page route
         get("/product/:id", ProductController::renderProductPage, new ThymeleafTemplateEngine());
 
+
+        post("/order-complete", OrderController::completeOrder, new ThymeleafTemplateEngine());
+
+        // Always add generic routes to the end
+        get("/", ProductController::renderAll, new ThymeleafTemplateEngine());
+
         // Add this line to your project to enable the debug screen
-        enableDebugScreen();
+//        enableDebugScreen();
     }
 }
