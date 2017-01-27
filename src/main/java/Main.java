@@ -3,6 +3,7 @@ import static spark.debug.DebugScreen.enableDebugScreen;
 
 import com.codecool.shop.controller.OrderController;
 import com.codecool.shop.controller.ProductController;
+import com.codecool.shop.controller.VideoServiceController;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
 public class Main {
@@ -34,10 +35,16 @@ public class Main {
 
         get("/update-cart", OrderController::updateCart);
 
+        // Individual product page route
+        get("/product/:id", ProductController::renderProductPage, new ThymeleafTemplateEngine());
+
+
+        post("/order-complete", OrderController::completeOrder, new ThymeleafTemplateEngine());
+
         // Always add generic routes to the end
         get("/", ProductController::renderAll, new ThymeleafTemplateEngine());
 
         // Add this line to your project to enable the debug screen
-        enableDebugScreen();
+//        enableDebugScreen();
     }
 }
